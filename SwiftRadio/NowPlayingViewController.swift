@@ -212,6 +212,18 @@ class NowPlayingViewController: UIViewController {
     // MARK: - UI Helper Methods
     //*****************************************************************
     
+    func convert(var st: String) ->String{
+        
+        var byte:[UInt8] = []
+        for codeUnit in st.unicodeScalars{
+            byte.append(UInt8(codeUnit.value))
+        }
+        
+        let t1 = NSData(bytes: byte, length: byte.count)
+        let t2 = String(data: t1, encoding: NSUTF8StringEncoding)
+        return t2!
+    }
+    
     func optimizeForDeviceSize() {
         
         // Adjust album size to fit iPhone 4s, 6s & 6s+
@@ -420,10 +432,11 @@ class NowPlayingViewController: UIViewController {
             } else {
                 // Use iTunes API. Images are 100px by 100px
                 if let artURL = json["results"][0]["artworkUrl100"].string {
+                    let newURL = artURL.stringByReplacingOccurrencesOfString("100x100", withString: "225x225")
                     
-                    if DEBUG_LOG { print("iTunes artURL: \(artURL)") }
+                    if DEBUG_LOG { print("iTunes artURL: \(newURL)") }
                     
-                    self.track.artworkURL = artURL
+                    self.track.artworkURL = newURL
                     self.track.artworkLoaded = true
                     self.updateAlbumArtwork()
                 } else {
@@ -494,7 +507,7 @@ class NowPlayingViewController: UIViewController {
             
             let firstMeta: MPTimedMetadata = radioPlayer.timedMetadata.first as! MPTimedMetadata
             let metaData = firstMeta.value as! String
-            
+            print(metaData)
             var stringParts = [String]()
             if metaData.rangeOfString(" - ") != nil {
                 stringParts = metaData.componentsSeparatedByString(" - ")
@@ -504,13 +517,13 @@ class NowPlayingViewController: UIViewController {
             
             // Set artist & songvariables
             let currentSongName = track.title
-            track.artist = stringParts[0]
-            track.title = stringParts[0]
+            track.artist = self.convert(stringParts[0])
+            track.title = self.convert(stringParts[0])
             
             if stringParts.count > 1 {
-                track.title = stringParts[1]
+                track.title = self.convert(stringParts[1])
             }
-            
+    
             if track.artist == "" && track.title == "" {
                 track.artist = currentStation.stationDesc
                 track.title = currentStation.stationName
@@ -527,6 +540,7 @@ class NowPlayingViewController: UIViewController {
                     // Update Labels
                     self.artistLabel.text = self.track.artist
                     self.songLabel.text = self.track.title
+
                     
                     // songLabel animation
                     self.songLabel.animation = "zoomIn"
