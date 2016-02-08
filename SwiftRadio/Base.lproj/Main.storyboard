@@ -417,11 +417,19 @@
                                     <constraint firstItem="Ygz-Co-31f" firstAttribute="top" secondItem="dtX-QN-LoN" secondAttribute="top" constant="22" id="tyF-Wg-6BH"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cCp-0w-5hm">
+                                <rect key="frame" x="136" y="528" width="93" height="28"/>
+                                <state key="normal" title="Sleep"/>
+                                <connections>
+                                    <action selector="autoStopPressed" destination="vXZ-lx-hvc" eventType="touchUpInside" id="jAe-Mi-wX1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="JCK-L1-2Sc" secondAttribute="centerX" id="1Wd-Ce-ie0"/>
                             <constraint firstItem="obn-8m-awZ" firstAttribute="leading" secondItem="RA9-OX-Xr1" secondAttribute="leading" id="4LO-kb-G6v"/>
+                            <constraint firstItem="cCp-0w-5hm" firstAttribute="trailing" secondItem="JCK-L1-2Sc" secondAttribute="trailing" id="4cC-Zy-4Fj"/>
                             <constraint firstItem="KC8-ZG-rx5" firstAttribute="trailing" secondItem="v3l-q6-g0h" secondAttribute="trailing" id="5SZ-je-i3P"/>
                             <constraint firstItem="RA9-OX-Xr1" firstAttribute="top" secondItem="obn-8m-awZ" secondAttribute="bottom" constant="-32" id="5fc-ws-2hz"/>
                             <constraint firstAttribute="trailing" secondItem="Yfv-H0-2Po" secondAttribute="trailing" constant="12" id="6vU-qY-CRF"/>
@@ -435,11 +443,14 @@
                             <constraint firstItem="GIj-4c-kRh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="12" id="Hts-LO-0mm"/>
                             <constraint firstItem="JCK-L1-2Sc" firstAttribute="top" secondItem="obn-8m-awZ" secondAttribute="bottom" constant="17" id="OBm-8c-dti"/>
                             <constraint firstItem="dtX-QN-LoN" firstAttribute="top" secondItem="JCK-L1-2Sc" secondAttribute="bottom" constant="10" id="TD6-Jv-Vkj"/>
+                            <constraint firstItem="cCp-0w-5hm" firstAttribute="bottom" secondItem="Yfv-H0-2Po" secondAttribute="bottom" id="Z0n-3G-k1P"/>
                             <constraint firstItem="v3l-q6-g0h" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="fmg-j6-zIe"/>
                             <constraint firstItem="uXf-Wr-UiK" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="hPm-1B-yKf"/>
                             <constraint firstItem="KC8-ZG-rx5" firstAttribute="leading" secondItem="v3l-q6-g0h" secondAttribute="leading" id="kPF-QT-yN6"/>
                             <constraint firstAttribute="trailing" secondItem="dtX-QN-LoN" secondAttribute="trailing" id="kQd-xy-Nl1"/>
                             <constraint firstAttribute="trailing" secondItem="obn-8m-awZ" secondAttribute="trailing" constant="70" id="mbe-x3-NBX"/>
+                            <constraint firstItem="cCp-0w-5hm" firstAttribute="leading" secondItem="GIj-4c-kRh" secondAttribute="trailing" constant="34" id="mqv-9o-ZaI"/>
+                            <constraint firstItem="cCp-0w-5hm" firstAttribute="centerY" secondItem="GIj-4c-kRh" secondAttribute="centerY" id="stI-vt-Ibm"/>
                             <constraint firstItem="obn-8m-awZ" firstAttribute="trailing" secondItem="RA9-OX-Xr1" secondAttribute="trailing" id="uX9-xo-4bC"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="GIj-4c-kRh" secondAttribute="bottom" constant="8" id="ugE-R5-bnr"/>
                             <constraint firstItem="uXf-Wr-UiK" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="ukJ-i6-3WQ"/>
@@ -453,6 +464,7 @@
                         <outlet property="albumHeightConstraint" destination="hCD-tK-vVP" id="VlU-n5-VPe"/>
                         <outlet property="albumImageView" destination="obn-8m-awZ" id="13r-WO-VAs"/>
                         <outlet property="artistLabel" destination="v3l-q6-g0h" id="s0B-6Y-MWu"/>
+                        <outlet property="autoStopButton" destination="cCp-0w-5hm" id="B6Q-2F-xuQ"/>
                         <outlet property="pauseButton" destination="k7t-tN-2wp" id="hY6-Tz-wKV"/>
                         <outlet property="playButton" destination="D3H-co-r2v" id="7vv-MG-kTG"/>
                         <outlet property="songLabel" destination="KC8-ZG-rx5" id="tNh-3K-qWW"/>

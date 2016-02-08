@@ -36,6 +36,7 @@ class NowPlayingViewController: UIViewController {
     @IBOutlet weak var volumeParentView: UIView!
     @IBOutlet weak var slider = UISlider()
     
+    @IBOutlet weak var autoStopButton: UIButton!
     var currentStation: RadioStation!
     var downloadTask: NSURLSessionDownloadTask?
     var iPhone4 = false
@@ -208,6 +209,56 @@ class NowPlayingViewController: UIViewController {
         mpVolumeSlider.value = sender.value
     }
     
+    @IBAction func autoStopPressed() {
+        let optionMenu = UIAlertController(title: nil, message: "Auto stop in", preferredStyle:.ActionSheet)
+        let option1 = UIAlertAction(title: "15mins", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Will stop in 15mins")
+            var timer = NSTimer.scheduledTimerWithTimeInterval(900, target: self, selector: "autoStopRadio", userInfo: nil, repeats: false)
+        })
+        let option2 = UIAlertAction(title: "30mins", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Will stop in 30mins")
+            var timer = NSTimer.scheduledTimerWithTimeInterval(1800, target: self, selector: "autoStopRadio", userInfo: nil, repeats: false)
+        })
+        let option3 = UIAlertAction(title: "45mins", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Will stop in 45mins")
+            var timer = NSTimer.scheduledTimerWithTimeInterval(2700, target: self, selector: "autoStopRadio", userInfo: nil, repeats: false)
+        })
+        let option4 = UIAlertAction(title: "60mins", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Will stop in 60mins")
+            var timer = NSTimer.scheduledTimerWithTimeInterval(3600, target: self, selector: "autoStopRadio", userInfo: nil, repeats: false)
+        })
+        let option5 = UIAlertAction(title: "Cancel", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Cancel")
+        })
+        
+        optionMenu.addAction(option1)
+        optionMenu.addAction(option2)
+        optionMenu.addAction(option3)
+        optionMenu.addAction(option4)
+        optionMenu.addAction(option5)
+        
+        self.presentViewController(optionMenu, animated: true, completion: nil)
+        
+    }
+    
+    func autoStopRadio() {
+        track.isPlaying = false
+        
+        playButtonEnable()
+        
+        radioPlayer.pause()
+        updateLabels("Station auto stopped...")
+        nowPlayingImageView.stopAnimating()
+        
+        // Update StationsVC
+        self.delegate?.trackPlayingToggled(self.track)
+        
+    }
     //*****************************************************************
     // MARK: - UI Helper Methods
     //*****************************************************************
