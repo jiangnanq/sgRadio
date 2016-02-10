@@ -35,8 +35,8 @@ class NowPlayingViewController: UIViewController {
     @IBOutlet weak var stationDescLabel: UILabel!
     @IBOutlet weak var volumeParentView: UIView!
     @IBOutlet weak var slider = UISlider()
-    
     @IBOutlet weak var autoStopButton: UIButton!
+    
     var currentStation: RadioStation!
     var downloadTask: NSURLSessionDownloadTask?
     var iPhone4 = false
@@ -46,6 +46,9 @@ class NowPlayingViewController: UIViewController {
     let radioPlayer = Player.radio
     var track: Track!
     var mpVolumeSlider = UISlider()
+    var sleepTimer = NSTimer()
+    var sleepCounter: Count?
+    var updateSleepLabelTimer = NSTimer()
     
     weak var delegate: NowPlayingViewControllerDelegate?
     
@@ -214,22 +217,26 @@ class NowPlayingViewController: UIViewController {
         let option1 = UIAlertAction(title: "15mins", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Will stop in 15mins")
-            var timer = NSTimer.scheduledTimerWithTimeInterval(900, target: self, selector: "autoStopRadio", userInfo: nil, repeats: false)
+            self.sleepTimer = NSTimer.scheduledTimerWithTimeInterval(900, target: self, selector: "autoStopRadio", userInfo: nil, repeats: false)
+            self.sleepCounter = Count(timeinterval: 900)
+            self.updateSleepLabelTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "updateSleepLabel", userInfo: nil, repeats: true)
         })
         let option2 = UIAlertAction(title: "30mins", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Will stop in 30mins")
-            var timer = NSTimer.scheduledTimerWithTimeInterval(1800, target: self, selector: "autoStopRadio", userInfo: nil, repeats: false)
+            self.sleepTimer = NSTimer.scheduledTimerWithTimeInterval(1800, target: self, selector: "autoStopRadio", userInfo: nil, repeats: false)
+            self.sleepCounter = Count(timeinterval: 1800)
+            self.updateSleepLabelTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "updateSleepLabel", userInfo: nil, repeats: true)
         })
         let option3 = UIAlertAction(title: "45mins", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Will stop in 45mins")
-            var timer = NSTimer.scheduledTimerWithTimeInterval(2700, target: self, selector: "autoStopRadio", userInfo: nil, repeats: false)
+            self.sleepTimer = NSTimer.scheduledTimerWithTimeInterval(2700, target: self, selector: "autoStopRadio", userInfo: nil, repeats: false)
         })
         let option4 = UIAlertAction(title: "60mins", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Will stop in 60mins")
-            var timer = NSTimer.scheduledTimerWithTimeInterval(3600, target: self, selector: "autoStopRadio", userInfo: nil, repeats: false)
+            self.sleepTimer = NSTimer.scheduledTimerWithTimeInterval(3600, target: self, selector: "autoStopRadio", userInfo: nil, repeats: false)
         })
         let option5 = UIAlertAction(title: "Cancel", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
@@ -244,6 +251,18 @@ class NowPlayingViewController: UIViewController {
         
         self.presentViewController(optionMenu, animated: true, completion: nil)
         
+    }
+    
+    func updateSleepLabel() {
+        if (self.sleepCounter!.checkMode()){
+            UIView.performWithoutAnimation({ () -> Void in
+                self.autoStopButton.setTitle(self.sleepCounter?.checkRemainingTime(), forState: UIControlState.Normal)
+                self.autoStopButton.layoutIfNeeded()
+            })
+            
+        }else {
+            self.updateSleepLabelTimer.invalidate()
+        }
     }
     
     func autoStopRadio() {
