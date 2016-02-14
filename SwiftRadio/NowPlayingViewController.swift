@@ -48,7 +48,6 @@ class NowPlayingViewController: UIViewController {
     var mpVolumeSlider = UISlider()
     var sleepTimer = NSTimer()
     var sleepCounter: Count?
-    var updateSleepLabelTimer = NSTimer()
     
     weak var delegate: NowPlayingViewControllerDelegate?
     
@@ -105,6 +104,8 @@ class NowPlayingViewController: UIViewController {
         
         // Setup slider
         setupVolumeSlider()
+        self.sleepCounter = Count.sharedInstance
+        self.sleepCounter!.delegate = self
     }
     
     func didBecomeActiveNotificationReceived() {
@@ -217,26 +218,22 @@ class NowPlayingViewController: UIViewController {
         let option1 = UIAlertAction(title: "15mins", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Will stop in 15mins")
-            self.sleepTimer = NSTimer.scheduledTimerWithTimeInterval(900, target: self, selector: "autoStopRadio", userInfo: nil, repeats: false)
-            self.sleepCounter = Count(timeinterval: 900)
-            self.updateSleepLabelTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "updateSleepLabel", userInfo: nil, repeats: true)
+            self.sleepCounter?.startTimer(900)
         })
         let option2 = UIAlertAction(title: "30mins", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Will stop in 30mins")
-            self.sleepTimer = NSTimer.scheduledTimerWithTimeInterval(1800, target: self, selector: "autoStopRadio", userInfo: nil, repeats: false)
-            self.sleepCounter = Count(timeinterval: 1800)
-            self.updateSleepLabelTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "updateSleepLabel", userInfo: nil, repeats: true)
+            self.sleepCounter?.startTimer(1800)
         })
         let option3 = UIAlertAction(title: "45mins", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Will stop in 45mins")
-            self.sleepTimer = NSTimer.scheduledTimerWithTimeInterval(2700, target: self, selector: "autoStopRadio", userInfo: nil, repeats: false)
+            self.sleepCounter?.startTimer(2700)
         })
         let option4 = UIAlertAction(title: "60mins", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Will stop in 60mins")
-            self.sleepTimer = NSTimer.scheduledTimerWithTimeInterval(3600, target: self, selector: "autoStopRadio", userInfo: nil, repeats: false)
+            self.sleepCounter?.startTimer(3600)
         })
         let option5 = UIAlertAction(title: "Cancel", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
@@ -253,31 +250,8 @@ class NowPlayingViewController: UIViewController {
         
     }
     
-    func updateSleepLabel() {
-        if (self.sleepCounter!.checkMode()){
-            UIView.performWithoutAnimation({ () -> Void in
-                self.autoStopButton.setTitle(self.sleepCounter?.checkRemainingTime(), forState: UIControlState.Normal)
-                self.autoStopButton.layoutIfNeeded()
-            })
-            
-        }else {
-            self.updateSleepLabelTimer.invalidate()
-        }
-    }
     
-    func autoStopRadio() {
-        track.isPlaying = false
-        
-        playButtonEnable()
-        
-        radioPlayer.pause()
-        updateLabels("Station auto stopped...")
-        nowPlayingImageView.stopAnimating()
-        
-        // Update StationsVC
-        self.delegate?.trackPlayingToggled(self.track)
-        
-    }
+
     //*****************************************************************
     // MARK: - UI Helper Methods
     //*****************************************************************
@@ -629,5 +603,18 @@ class NowPlayingViewController: UIViewController {
                 }
             }
         }
+    }
+}
+extension NowPlayingViewController:countDelegate {
+    func didUpdateEverySeconds(statusString: String) {
+        if (statusString == "Sleep") {
+            self.autoStopButton.setTitle("Sleep", forState: UIControlState.Normal)
+            pausePressed()
+            return
+        }
+        UIView.performWithoutAnimation({ () -> Void in
+            self.autoStopButton.setTitle(statusString, forState: UIControlState.Normal)
+            self.autoStopButton.layoutIfNeeded()
+        })
     }
 }
