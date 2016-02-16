@@ -551,21 +551,30 @@ class NowPlayingViewController: UIViewController {
             
             let firstMeta: MPTimedMetadata = radioPlayer.timedMetadata.first as! MPTimedMetadata
             let metaData = firstMeta.value as! String
-            print(metaData)
+            print("meta data is:\(metaData)")
             var stringParts = [String]()
             if metaData.rangeOfString(" - ") != nil {
                 stringParts = metaData.componentsSeparatedByString(" - ")
             } else {
                 stringParts = metaData.componentsSeparatedByString("-")
             }
-            
-            // Set artist & songvariables
             let currentSongName = track.title
-            track.artist = self.convert(stringParts[0])
-            track.title = self.convert(stringParts[0])
-            
-            if stringParts.count > 1 {
-                track.title = self.convert(stringParts[1])
+            if (currentStation.stationName == "UFM1003") && (metaData.rangeOfString("artist") != nil){
+                let metaData1003 = metaData.stringByRemovingPercentEncoding
+                let track1003 = metaData.componentsSeparatedByString("track")[1].componentsSeparatedByString("artist")[0].stringByRemovingPercentEncoding?.componentsSeparatedByString("\"")[2]
+                let artist1003 = metaData.componentsSeparatedByString("artist")[1].componentsSeparatedByString("next_song")[0].stringByRemovingPercentEncoding?.componentsSeparatedByString("\"")[2]
+                stringParts = []
+                stringParts = [artist1003!,track1003!]
+                print (artist1003,track1003)
+                track.artist = artist1003!
+                track.title = track1003!
+            } else if (currentStation.stationName != "UFM1003"){
+                 // Set artist & songvariables
+                track.artist = self.convert(stringParts[0])
+                track.title = self.convert(stringParts[0])
+                if stringParts.count > 1 {
+                    track.title = self.convert(stringParts[1])
+                }
             }
     
             if track.artist == "" && track.title == "" {
