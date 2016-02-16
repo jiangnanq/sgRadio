@@ -36,6 +36,7 @@ class NowPlayingViewController: UIViewController {
     @IBOutlet weak var volumeParentView: UIView!
     @IBOutlet weak var slider = UISlider()
     @IBOutlet weak var autoStopButton: UIButton!
+    @IBOutlet weak var dataUsageLabel: UILabel!
     
     var currentStation: RadioStation!
     var downloadTask: NSURLSessionDownloadTask?
@@ -86,11 +87,13 @@ class NowPlayingViewController: UIViewController {
             selector: Selector("metadataUpdated:"),
             name:MPMoviePlayerTimedMetadataUpdatedNotification,
             object: nil);
-        
+        self.sleepCounter = Count.sharedInstance
         // Check for station change
         if newStation {
             track = Track()
             stationDidChange()
+            self.sleepCounter?.stopPlayer()
+            self.sleepCounter?.startPlayer()
         } else {
             updateLabels()
             albumImageView.image = track.artworkImage
@@ -104,7 +107,7 @@ class NowPlayingViewController: UIViewController {
         
         // Setup slider
         setupVolumeSlider()
-        self.sleepCounter = Count.sharedInstance
+        
         self.sleepCounter!.delegate = self
     }
     
@@ -163,6 +166,7 @@ class NowPlayingViewController: UIViewController {
         radioPlayer.prepareToPlay()
         radioPlayer.play()
         
+        
         updateLabels("Loading Station...")
         
         // songLabel animate
@@ -194,6 +198,8 @@ class NowPlayingViewController: UIViewController {
         
         // Update StationsVC
         self.delegate?.trackPlayingToggled(self.track)
+        
+        self.sleepCounter?.startPlayer()
     }
     
     @IBAction func pausePressed() {
@@ -207,6 +213,7 @@ class NowPlayingViewController: UIViewController {
         
         // Update StationsVC
         self.delegate?.trackPlayingToggled(self.track)
+        self.sleepCounter?.stopPlayer()
     }
     
     @IBAction func volumeChanged(sender:UISlider) {
@@ -539,6 +546,38 @@ class NowPlayingViewController: UIViewController {
         }
     }
     
+    func processMetaData(firstMeta:MPTimedMetadata) {
+        let metaData = firstMeta.value as! String
+        print("meta data is:\(metaData)")
+        var stringParts = [String]()
+        if metaData.rangeOfString(" - ") != nil {
+            stringParts = metaData.componentsSeparatedByString(" - ")
+        } else {
+            stringParts = metaData.componentsSeparatedByString("-")
+        }
+        
+        if (currentStation.stationName == "UFM1003") && (metaData.rangeOfString("artist") != nil){
+            let track1003 = metaData.componentsSeparatedByString("track")[1].componentsSeparatedByString("artist")[0].stringByRemovingPercentEncoding?.componentsSeparatedByString("\"")[2]
+            let artist1003 = metaData.componentsSeparatedByString("artist")[1].componentsSeparatedByString("next_song")[0].stringByRemovingPercentEncoding?.componentsSeparatedByString("\"")[2]
+            stringParts = []
+            stringParts = [artist1003!,track1003!]
+            print (artist1003,track1003)
+            track.artist = artist1003!
+            track.title = track1003!
+        } else if (currentStation.stationName != "UFM1003"){
+            // Set artist & songvariables
+            track.artist = self.convert(stringParts[0])
+            track.title = self.convert(stringParts[0])
+            if stringParts.count > 1 {
+                track.title = self.convert(stringParts[1])
+            }
+        }
+        
+        if track.artist == "" && track.title == "" {
+            track.artist = currentStation.stationDesc
+            track.title = currentStation.stationName
+        }
+    }
     //*****************************************************************
     // MARK: - MetaData Updated Notification
     //*****************************************************************
@@ -548,39 +587,9 @@ class NowPlayingViewController: UIViewController {
         if(radioPlayer.timedMetadata != nil && radioPlayer.timedMetadata.count > 0)
         {
             startNowPlayingAnimation()
-            
-            let firstMeta: MPTimedMetadata = radioPlayer.timedMetadata.first as! MPTimedMetadata
-            let metaData = firstMeta.value as! String
-            print("meta data is:\(metaData)")
-            var stringParts = [String]()
-            if metaData.rangeOfString(" - ") != nil {
-                stringParts = metaData.componentsSeparatedByString(" - ")
-            } else {
-                stringParts = metaData.componentsSeparatedByString("-")
-            }
             let currentSongName = track.title
-            if (currentStation.stationName == "UFM1003") && (metaData.rangeOfString("artist") != nil){
-                let metaData1003 = metaData.stringByRemovingPercentEncoding
-                let track1003 = metaData.componentsSeparatedByString("track")[1].componentsSeparatedByString("artist")[0].stringByRemovingPercentEncoding?.componentsSeparatedByString("\"")[2]
-                let artist1003 = metaData.componentsSeparatedByString("artist")[1].componentsSeparatedByString("next_song")[0].stringByRemovingPercentEncoding?.componentsSeparatedByString("\"")[2]
-                stringParts = []
-                stringParts = [artist1003!,track1003!]
-                print (artist1003,track1003)
-                track.artist = artist1003!
-                track.title = track1003!
-            } else if (currentStation.stationName != "UFM1003"){
-                 // Set artist & songvariables
-                track.artist = self.convert(stringParts[0])
-                track.title = self.convert(stringParts[0])
-                if stringParts.count > 1 {
-                    track.title = self.convert(stringParts[1])
-                }
-            }
-    
-            if track.artist == "" && track.title == "" {
-                track.artist = currentStation.stationDesc
-                track.title = currentStation.stationName
-            }
+//            let firstMeta: MPTimedMetadata = radioPlayer.timedMetadata.first as! MPTimedMetadata
+            self.processMetaData(radioPlayer.timedMetadata.first as! MPTimedMetadata)
             
             dispatch_async(dispatch_get_main_queue()) {
                 
@@ -625,5 +634,9 @@ extension NowPlayingViewController:countDelegate {
             self.autoStopButton.setTitle(statusString, forState: UIControlState.Normal)
             self.autoStopButton.layoutIfNeeded()
         })
+    }
+    
+    func didUpdateDataUsage(dataUsageString : String) {
+        self.dataUsageLabel.text = dataUsageString
     }
 }

@@ -10,6 +10,7 @@ import Foundation
 
 protocol countDelegate: class {
     func didUpdateEverySeconds(statusString : String)
+    func didUpdateDataUsage(dataUsageString : String)
 }
 
 class Count :NSObject {
@@ -18,7 +19,9 @@ class Count :NSObject {
     var remainTimeString    : String
     var sleepingMode        : Bool
     var timeToStop          : NSDate
+    var playingTimeTotalizer: UInt32        //playing time in seconds
     var sleepTimer = NSTimer()
+    var dataUsageTimer = NSTimer()
     static let sharedInstance = Count()
     weak var delegate: countDelegate?
  
@@ -28,6 +31,7 @@ class Count :NSObject {
         remainTimeString = ""
         sleepingMode = false
         timeToStop = NSDate()
+        playingTimeTotalizer = 0
     }
     
     func checkRemainingTime() ->String {
@@ -51,10 +55,10 @@ class Count :NSObject {
         let secondsToAdd = Double(timeIntervalInSeconds)
         self.timeToStop = self.timeToStart.dateByAddingTimeInterval(secondsToAdd)
         self.sleepingMode = true
-        self.sleepTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "everySecond", userInfo: nil, repeats: true)
+        self.sleepTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "everySecondSleep", userInfo: nil, repeats: true)
     }
     
-    func everySecond() {
+    func everySecondSleep() {
         let now = NSDate()
         var resultString = ""
         let dateComponetsFormatter = NSDateComponentsFormatter()
@@ -68,6 +72,27 @@ class Count :NSObject {
             resultString = dateComponetsFormatter.stringFromTimeInterval(interval)!
         }
         self.delegate?.didUpdateEverySeconds(resultString)
+    }
+    
+    func startPlayer() {
+        self.dataUsageTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "dataUsageTotalizer", userInfo: nil, repeats: true)
+    }
+    
+    func stopPlayer() {
+        self.dataUsageTimer.invalidate()
+    }
+    
+    func dataUsageTotalizer() {
+        self.playingTimeTotalizer++
+        let dataUsageDouble = Double(self.playingTimeTotalizer * 5)
+        var dataUsageString = ""
+        if (dataUsageDouble>1000){
+            let dataUsageDoubleInM = dataUsageDouble/1000
+            dataUsageString = String(format: "%.1fMb", dataUsageDoubleInM)
+        } else {
+            dataUsageString = String(format: "%.1fkb", dataUsageDouble)
+        }
+        self.delegate?.didUpdateDataUsage(dataUsageString)
     }
     
     
