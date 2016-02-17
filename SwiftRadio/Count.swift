@@ -24,6 +24,7 @@ class Count :NSObject {
     var dataUsageTimer = NSTimer()
     static let sharedInstance = Count()
     weak var delegate: countDelegate?
+    let reachability = Reachability.reachabilityForInternetConnection()
  
     override init() {
         timeToStart = NSDate()
@@ -75,7 +76,7 @@ class Count :NSObject {
     }
     
     func startPlayer() {
-        self.dataUsageTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "dataUsageTotalizer", userInfo: nil, repeats: true)
+        self.dataUsageTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "dataUsageTotalizer", userInfo: nil, repeats: true)
     }
     
     func stopPlayer() {
@@ -83,17 +84,18 @@ class Count :NSObject {
     }
     
     func dataUsageTotalizer() {
-        self.playingTimeTotalizer++
-        let dataUsageDouble = Double(self.playingTimeTotalizer * 5)
-        var dataUsageString = ""
-        if (dataUsageDouble>1000){
+        if self.checkWifiConnection() {
+            self.playingTimeTotalizer++
+            let dataUsageDouble = Double(self.playingTimeTotalizer * 25)
+            var dataUsageString = ""
             let dataUsageDoubleInM = dataUsageDouble/1000
             dataUsageString = String(format: "%.1fMb", dataUsageDoubleInM)
-        } else {
-            dataUsageString = String(format: "%.1fkb", dataUsageDouble)
+            self.delegate?.didUpdateDataUsage(dataUsageString)
         }
-        self.delegate?.didUpdateDataUsage(dataUsageString)
     }
     
-    
+    func checkWifiConnection() -> Bool{
+        return self.reachability.currentReachabilityStatus().rawValue == ReachableViaWWAN.rawValue
+    }
+
 }
