@@ -4,30 +4,37 @@
      {
      "name": "YES 933",
      "streamURL": "http://mediacorp-web.rastream.com/933fm",
-     "imageURL": "",
+     "imageURL": "station-yes933",
      "desc": "YES 933",
      "longDesc": "Chinese Music"
      },
      {
      "name": "Love 97.2FM",
      "streamURL": "http://mediacorp-web.rastream.com/972fm",
-     "imageURL": "",
-     "desc": "Love 97.2FM",
+     "imageURL": "station-love972",
+     "desc": "最愛972",
      "longDesc": "最愛972"
      },
      {
      "name": "CLASS 95",
      "streamURL": "http://mediacorp-web.rastream.com/950fm",
-     "imageURL": "",
-     "desc": "CLASS 95",
+     "imageURL": "station-class95",
+     "desc": "THE BEST MIX OF MUSIC",
      "longDesc": "CLASS 95"
      },
      {
      "name": "UFM1003",
      "streamURL": "http://sph.rastream.com/1003fm.iphone",
-     "imageURL": "",
-     "desc": "UFM 1003",
-     "longDesc": "收听UFM100.3,最精彩的节目时刻相伴，最U选的好歌 非听不可！"
+     "imageURL": "station-UFM1003",
+     "desc": "最U选的好歌 非听不可！",
+     "longDesc": "6:00am - 10:00am 早班 文鸿，丽梅加小猪 \n10:00am - 1:00pm 早午餐， 早午安(安娜) \n1:00pm - 4:00pm 茶于饭后(于玲) \n4:00pm - 8:00pm U～傍晚好(菁云 良泉) \n8:00pm - 12:00 midnight 夜晚最有Feel(承尧)"
+     },
+     {
+     "name": "883JiaFM",
+     "streamURL": "http://playerservices.streamtheworld.com/api/livestream-redirect/883JIA.mp3",
+     "imageURL": "station-883jiafm",
+     "desc": "新加坡唯一双语电台",
+     "longDesc": "新加坡唯一双语电台"
      }
     ]
 }
