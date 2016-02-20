@@ -37,6 +37,7 @@ class NowPlayingViewController: UIViewController {
     @IBOutlet weak var slider = UISlider()
     @IBOutlet weak var autoStopButton: UIButton!
     @IBOutlet weak var dataUsageLabel: UILabel!
+    @IBOutlet weak var saveSongButton: UIButton!
     
     var currentStation: RadioStation!
     var downloadTask: NSURLSessionDownloadTask?
@@ -49,6 +50,7 @@ class NowPlayingViewController: UIViewController {
     var mpVolumeSlider = UISlider()
     var sleepTimer = NSTimer()
     var sleepCounter: Count?
+    var savedSongs: favoriteSongs?
     
     weak var delegate: NowPlayingViewControllerDelegate?
     
@@ -88,6 +90,7 @@ class NowPlayingViewController: UIViewController {
             name:MPMoviePlayerTimedMetadataUpdatedNotification,
             object: nil);
         self.sleepCounter = Count.sharedInstance
+        self.savedSongs = favoriteSongs.sharedInstance
         // Check for station change
         if newStation {
             track = Track()
@@ -218,6 +221,10 @@ class NowPlayingViewController: UIViewController {
     
     @IBAction func volumeChanged(sender:UISlider) {
         mpVolumeSlider.value = sender.value
+    }
+    
+    @IBAction func saveSongToFavorite(sender:UIButton){
+        self.savedSongs?.addOneSong(self.track)
     }
     
     @IBAction func autoStopPressed() {

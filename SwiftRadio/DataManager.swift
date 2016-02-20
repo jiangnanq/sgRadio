@@ -50,6 +50,37 @@ class DataManager {
         }
     }
     
+    
+    class func getSongsFromFileWithSuccess(success: (songs: [String]) -> Void){
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){
+            let documents = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!
+            let documentsDirectoryPath = NSURL(string: documents)!
+            let readPath = documentsDirectoryPath.URLByAppendingPathComponent("songs.txt")
+            let fileManager = NSFileManager.defaultManager()
+            if !fileManager.fileExistsAtPath(readPath.absoluteString) {
+                fileManager.createFileAtPath(readPath.absoluteString, contents: nil, attributes: nil)
+            }
+            do {
+                let content = try String(contentsOfFile: readPath.absoluteString, encoding: NSUTF8StringEncoding)
+                success (songs: content.componentsSeparatedByString("\n"))
+            } catch _ as NSError {
+                print ("read songs file failed")
+            }
+        }
+        
+    }
+    
+    class func saveFavoriteSongToFile (allSongs: [String]){
+        let documents = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!
+        let documentsDirectoryPath = NSURL(string: documents)!
+        let writePath = documentsDirectoryPath.URLByAppendingPathComponent("songs.txt")
+        let joined = allSongs.joinWithSeparator("\n")
+        do {
+            try joined.writeToFile(writePath.absoluteString, atomically: true, encoding: NSUTF8StringEncoding)
+        } catch _ as NSError {
+            print ("fail when write to the song file")
+        }
+    }
     //*****************************************************************
     // Get LastFM/iTunes Data
     //*****************************************************************
