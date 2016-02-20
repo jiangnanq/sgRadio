@@ -86,7 +86,7 @@ class Count :NSObject {
     func dataUsageTotalizer() {
         if self.checkWifiConnection() {
             self.playingTimeTotalizer++
-            let dataUsageDouble = Double(self.playingTimeTotalizer * 25 * 6)
+            let dataUsageDouble = Double(self.playingTimeTotalizer * 25)
             var dataUsageString = ""
             let dataUsageDoubleInM = dataUsageDouble/1000
             dataUsageString = String(format: "已经用了%.1fMb流量", dataUsageDoubleInM)

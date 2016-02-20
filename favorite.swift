@@ -50,7 +50,12 @@ class favoriteSongs: NSObject {
     func allSongsInText() -> String {
         var allSongText = ""
         for aSong in self.favoriteTracks {
-            allSongText = allSongText + "\n" + aSong
+            if aSong != ""{
+                let title = aSong.componentsSeparatedByString(",")[0]
+                let artist = aSong.componentsSeparatedByString(",")[1]
+                let songInfo = title + ":" + artist
+                allSongText = allSongText + "\n" + songInfo
+            }
         }
         return allSongText
     }

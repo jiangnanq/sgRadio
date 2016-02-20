@@ -11,12 +11,17 @@ import MessageUI
 
 class AboutViewController: UIViewController {
     
+    @IBOutlet weak var allSavedSongsLabel: UITextView!
+    var savedSongs:favoriteSongs!
+    
     //*****************************************************************
     // MARK: - ViewDidLoad
     //*****************************************************************
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.savedSongs = favoriteSongs.sharedInstance
+        self.allSavedSongsLabel.text = self.savedSongs.allSongsInText()
     }
    
     //*****************************************************************
@@ -26,9 +31,9 @@ class AboutViewController: UIViewController {
     @IBAction func emailButtonDidTouch(sender: UIButton) {
         
         // Use your own email address & subject
-        let receipients = ["matthew.fecher@gmail.com"]
-        let subject = "From Swift Radio App"
-        let messageBody = ""
+        let receipients = [""]
+        let subject = "From Singapore Radio"
+        let messageBody = self.savedSongs.allSongsInText()
         
         let configuredMailComposeViewController = configureMailComposeViewController(receipients, subject: subject, messageBody: messageBody)
         
