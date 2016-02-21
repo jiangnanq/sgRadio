@@ -224,7 +224,13 @@ class NowPlayingViewController: UIViewController {
     }
     
     @IBAction func saveSongToFavorite(sender:UIButton){
+        EZLoadingActivity.show("Saving", disableUI: false)
         self.savedSongs?.addOneSong(self.track)
+        let delay = 1.5 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        dispatch_after(time, dispatch_get_main_queue()) { () -> Void in
+            EZLoadingActivity.hide(success: true, animated: false)
+        }
     }
     
     @IBAction func autoStopPressed() {
