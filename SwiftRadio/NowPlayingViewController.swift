@@ -224,38 +224,60 @@ class NowPlayingViewController: UIViewController {
     }
     
     @IBAction func saveSongToFavorite(sender:UIButton){
-        EZLoadingActivity.show("Saving", disableUI: false)
-        self.savedSongs?.addOneSong(self.track)
-        let delay = 1.5 * Double(NSEC_PER_SEC)
-        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-        dispatch_after(time, dispatch_get_main_queue()) { () -> Void in
-            EZLoadingActivity.hide(success: true, animated: false)
-        }
+        let optionMenu = UIAlertController(title: nil, message: "Saved", preferredStyle: .ActionSheet)
+        let option1 = UIAlertAction(title: "Save", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            EZLoadingActivity.show("Saving", disableUI: false)
+            self.savedSongs?.addOneSong(self.track)
+            let delay = 0.5 * Double(NSEC_PER_SEC)
+            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+            dispatch_after(time, dispatch_get_main_queue()) { () -> Void in
+                EZLoadingActivity.hide(success: true, animated: false)
+            }
+        })
+        let option2 = UIAlertAction(title: "View", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.showSavedSongsList()
+        })
+        let option3 = UIAlertAction(title: "取消", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Cancel")
+        })
+
+        optionMenu.addAction(option1)
+        optionMenu.addAction(option2)
+        optionMenu.addAction(option3)
+        
+        self.presentViewController(optionMenu, animated: true, completion: nil)
+
+    }
+    func showSavedSongsList() {
+        performSegueWithIdentifier("savedSongs", sender: self)
     }
     
     @IBAction func autoStopPressed() {
-        let optionMenu = UIAlertController(title: nil, message: "Auto stop in", preferredStyle:.ActionSheet)
-        let option1 = UIAlertAction(title: "15mins", style: .Default, handler: {
+        let optionMenu = UIAlertController(title: nil, message: "自动停止", preferredStyle:.ActionSheet)
+        let option1 = UIAlertAction(title: "15分钟", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Will stop in 15mins")
             self.sleepCounter?.startTimer(900)
         })
-        let option2 = UIAlertAction(title: "30mins", style: .Default, handler: {
+        let option2 = UIAlertAction(title: "30分钟", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Will stop in 30mins")
             self.sleepCounter?.startTimer(1800)
         })
-        let option3 = UIAlertAction(title: "45mins", style: .Default, handler: {
+        let option3 = UIAlertAction(title: "45分钟", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Will stop in 45mins")
             self.sleepCounter?.startTimer(2700)
         })
-        let option4 = UIAlertAction(title: "60mins", style: .Default, handler: {
+        let option4 = UIAlertAction(title: "60分钟", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Will stop in 60mins")
             self.sleepCounter?.startTimer(3600)
         })
-        let option5 = UIAlertAction(title: "Cancel", style: .Default, handler: {
+        let option5 = UIAlertAction(title: "取消", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Cancel")
         })
