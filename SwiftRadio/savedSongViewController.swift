@@ -45,11 +45,36 @@ extension savedSongViewController: UITableViewDataSource {
         cell.textLabel?.backgroundColor = UIColor.clearColor()
         let aSong = self.allSavedSongs[indexPath.row]
         if !(aSong=="") {
-            cell.textLabel?.text = self.allSavedSongs[indexPath.row].componentsSeparatedByString(",")[0]
-            cell.detailTextLabel?.text = self.allSavedSongs[indexPath.row].componentsSeparatedByString(",")[1]
+            if let label = cell.textLabel {
+                label.text = self.allSavedSongs[indexPath.row].componentsSeparatedByString(",")[0]
+            }
+            if let detailLabel = cell.detailTextLabel {
+                detailLabel.text = self.allSavedSongs[indexPath.row].componentsSeparatedByString(",")[1]
+            }
         }
 
         return cell
     }
     
+}
+
+extension savedSongViewController:UITableViewDelegate {
+    func tableView(savedSongTable: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(savedSongTable: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            print ("delete this song")
+            self.allSavedSongs.removeAtIndex(indexPath.row)
+            self.savedSongs?.favoriteTracks.removeAtIndex(indexPath.row)
+            self.savedSongs?.saveAllSongs()
+            var selectIndex = [NSIndexPath]()
+            selectIndex.append(indexPath)
+            savedSongTable.deleteRowsAtIndexPaths(selectIndex, withRowAnimation: UITableViewRowAnimation.Fade)
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.savedSongTable?.reloadData()
+            })            
+        }
+    }
 }

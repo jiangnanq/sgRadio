@@ -143,6 +143,11 @@ class NowPlayingViewController: UIViewController {
         radioPlayer.shouldAutoplay = true
         radioPlayer.prepareToPlay()
         radioPlayer.controlStyle = MPMovieControlStyle.None
+        do{
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, withOptions:AVAudioSessionCategoryOptions.AllowBluetooth)
+        }catch _ {
+            print("error when set player!")
+        }
     }
   
     func setupVolumeSlider() {
@@ -223,19 +228,22 @@ class NowPlayingViewController: UIViewController {
         mpVolumeSlider.value = sender.value
     }
     
+    func saveThisSong() {
+        EZLoadingActivity.show("正在收藏", disableUI: false)
+        self.savedSongs?.addOneSong(self.track)
+        let delay = 0.5 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        dispatch_after(time, dispatch_get_main_queue()) { () -> Void in
+            EZLoadingActivity.hide(success: true, animated: false)
+        }
+    }
     @IBAction func saveSongToFavorite(sender:UIButton){
         let optionMenu = UIAlertController(title: nil, message: "Saved", preferredStyle: .ActionSheet)
-        let option1 = UIAlertAction(title: "Save", style: .Default, handler: {
+        let option1 = UIAlertAction(title: "收藏这首歌曲", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
-            EZLoadingActivity.show("Saving", disableUI: false)
-            self.savedSongs?.addOneSong(self.track)
-            let delay = 0.5 * Double(NSEC_PER_SEC)
-            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-            dispatch_after(time, dispatch_get_main_queue()) { () -> Void in
-                EZLoadingActivity.hide(success: true, animated: false)
-            }
+            self.saveThisSong()
         })
-        let option2 = UIAlertAction(title: "View", style: .Default, handler: {
+        let option2 = UIAlertAction(title: "查看收藏夹", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.showSavedSongsList()
         })
@@ -573,14 +581,25 @@ class NowPlayingViewController: UIViewController {
             switch receivedEvent!.subtype {
             case .RemoteControlPlay:
                 playPressed()
-            case .RemoteControlPause:
+            case .RemoteControlStop:
                 pausePressed()
+            case .RemoteControlTogglePlayPause:
+                if track.isPlaying {
+                    pausePressed()
+                }else {
+                    playPressed()
+                }
             default:
                 break
             }
         }
     }
     
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
+        if motion == .MotionShake {
+            self.saveThisSong()
+        }
+    }
     func processMetaData(firstMeta:MPTimedMetadata) {
         let metaData = firstMeta.value as! String
         print("meta data is:\(metaData)")
