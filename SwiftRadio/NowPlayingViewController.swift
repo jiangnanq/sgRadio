@@ -143,11 +143,6 @@ class NowPlayingViewController: UIViewController {
         radioPlayer.shouldAutoplay = true
         radioPlayer.prepareToPlay()
         radioPlayer.controlStyle = MPMovieControlStyle.None
-        do{
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, withOptions:AVAudioSessionCategoryOptions.AllowBluetooth)
-        }catch _ {
-            print("error when set player!")
-        }
     }
   
     func setupVolumeSlider() {
@@ -173,7 +168,7 @@ class NowPlayingViewController: UIViewController {
         radioPlayer.contentURL = NSURL(string: currentStation.stationStreamURL)
         radioPlayer.prepareToPlay()
         radioPlayer.play()
-        
+        self.setupAudioSession()
         
         updateLabels("Loading Station...")
         
@@ -190,7 +185,14 @@ class NowPlayingViewController: UIViewController {
     //*****************************************************************
     // MARK: - Player Controls (Play/Pause/Volume)
     //*****************************************************************
-    
+ 
+    func setupAudioSession() {
+        do{
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        }catch {
+            print("error when set player! \(error)" )
+        }
+    }
     @IBAction func playPressed() {
         track.isPlaying = true
         playButtonEnable(false)
@@ -203,6 +205,8 @@ class NowPlayingViewController: UIViewController {
         
         // Start NowPlaying Animation
         nowPlayingImageView.startAnimating()
+        
+ 
         
         // Update StationsVC
         self.delegate?.trackPlayingToggled(self.track)
@@ -589,6 +593,8 @@ class NowPlayingViewController: UIViewController {
                 }else {
                     playPressed()
                 }
+            case .RemoteControlPause:
+                pausePressed()
             default:
                 break
             }
