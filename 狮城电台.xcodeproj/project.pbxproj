@@ -56,13 +56,15 @@
 		94DB0AAC1B98B762005ED993 /* UnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DB0A8F1B98B762005ED993 /* UnwindSegue.swift */; };
 		94E9761C1B1A8F3200F52B1E /* UIImage+DropShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E9761B1B1A8F3200F52B1E /* UIImage+DropShadow.swift */; };
 		94ECF2671B94D80600D120A8 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ECF2661B94D80600D120A8 /* SwiftyJSON.swift */; };
+		BA0E2FA11C79FC3600D178DC /* EZLoadingActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0E2FA01C79FC3600D178DC /* EZLoadingActivity.swift */; };
+		BA1C47891C7B5C5700ED7C44 /* savedSongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1C47881C7B5C5700ED7C44 /* savedSongViewController.swift */; };
 		BA2F36151C776F02005C9290 /* favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2F36141C776F02005C9290 /* favorite.swift */; };
 		BAAE2B5D1C6B772E0027D7FD /* Count.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAE2B5C1C6B772E0027D7FD /* Count.swift */; };
 		BADE6E0C1C74C73A003BF207 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BADE6E0B1C74C73A003BF207 /* Reachability.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9409E1161ABF6FEA00312E2B /* 新加坡中文电台.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "新加坡中文电台.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9409E1161ABF6FEA00312E2B /* 狮城电台.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "狮城电台.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9409E11A1ABF6FEA00312E2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9409E11B1ABF6FEA00312E2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9409E1231ABF6FEA00312E2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -115,6 +117,8 @@
 		94E9761B1B1A8F3200F52B1E /* UIImage+DropShadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+DropShadow.swift"; sourceTree = "<group>"; };
 		94ECF2661B94D80600D120A8 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = SwiftRadio/Libraries/SwiftyJSON.swift; sourceTree = SOURCE_ROOT; };
 		B90086461BBE40AF00E5372C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		BA0E2FA01C79FC3600D178DC /* EZLoadingActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EZLoadingActivity.swift; sourceTree = "<group>"; };
+		BA1C47881C7B5C5700ED7C44 /* savedSongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = savedSongViewController.swift; sourceTree = "<group>"; };
 		BA2F36141C776F02005C9290 /* favorite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = favorite.swift; sourceTree = SOURCE_ROOT; };
 		BAAE2B5C1C6B772E0027D7FD /* Count.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Count.swift; sourceTree = "<group>"; };
 		BADE6DF91C74BBE3003BF207 /* SwiftRadio-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftRadio-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -138,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				BADE6E0D1C74C769003BF207 /* <#SwiftRadio#>-Bridging-Header.h */,
+				BA0E2FA01C79FC3600D178DC /* EZLoadingActivity.swift */,
 				B90086461BBE40AF00E5372C /* MediaPlayer.framework */,
 				9409E1181ABF6FEA00312E2B /* SwiftRadio */,
 				949BBB411ACCA2B6005B7C26 /* Libraries */,
@@ -149,7 +154,7 @@
 		9409E1171ABF6FEA00312E2B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9409E1161ABF6FEA00312E2B /* 新加坡中文电台.app */,
+				9409E1161ABF6FEA00312E2B /* 狮城电台.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -216,6 +221,7 @@
 				9409E13F1ABF78B000312E2B /* NowPlayingViewController.swift */,
 				94452E4E1AD6F24700BFE7A5 /* PopUpMenuViewController.swift */,
 				942A3F361AE43DF80011396E /* StationsViewController.swift */,
+				BA1C47881C7B5C5700ED7C44 /* savedSongViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -306,7 +312,7 @@
 			);
 			name = SwiftRadio;
 			productName = RadioPro;
-			productReference = 9409E1161ABF6FEA00312E2B /* 新加坡中文电台.app */;
+			productReference = 9409E1161ABF6FEA00312E2B /* 狮城电台.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -331,7 +337,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9409E1111ABF6FE900312E2B /* Build configuration list for PBXProject "新加坡中文电台" */;
+			buildConfigurationList = 9409E1111ABF6FE900312E2B /* Build configuration list for PBXProject "狮城电台" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -387,6 +393,7 @@
 				94DB0A911B98B762005ED993 /* AsyncImageView.swift in Sources */,
 				94D1D0A51AD6D6230022CA11 /* InfoDetailViewController.swift in Sources */,
 				949BBB401ACC9DEE005B7C26 /* DataManager.swift in Sources */,
+				BA1C47891C7B5C5700ED7C44 /* savedSongViewController.swift in Sources */,
 				94DB0A971B98B762005ED993 /* DesignableTabBarController.swift in Sources */,
 				94E9761C1B1A8F3200F52B1E /* UIImage+DropShadow.swift in Sources */,
 				94452E551AD7086800BFE7A5 /* AboutViewController.swift in Sources */,
@@ -404,6 +411,7 @@
 				BAAE2B5D1C6B772E0027D7FD /* Count.swift in Sources */,
 				94DB0A9E1B98B762005ED993 /* LoadingView.swift in Sources */,
 				942A3F371AE43DF80011396E /* StationsViewController.swift in Sources */,
+				BA0E2FA11C79FC3600D178DC /* EZLoadingActivity.swift in Sources */,
 				BADE6E0C1C74C73A003BF207 /* Reachability.m in Sources */,
 				94DB0AA41B98B762005ED993 /* SpringButton.swift in Sources */,
 				94DB0A931B98B762005ED993 /* BlurView.swift in Sources */,
@@ -528,7 +536,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sgradio;
-				PRODUCT_NAME = "新加坡中文电台";
+				PRODUCT_NAME = "狮城电台";
 				PROVISIONING_PROFILE = "";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/jiangnanqing/Dropbox/project/SgRadio/<#SwiftRadio#>-Bridging-Header.h";
@@ -553,7 +561,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sgradio;
-				PRODUCT_NAME = "新加坡中文电台";
+				PRODUCT_NAME = "狮城电台";
 				PROVISIONING_PROFILE = "";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/jiangnanqing/Dropbox/project/SgRadio/<#SwiftRadio#>-Bridging-Header.h";
@@ -563,7 +571,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9409E1111ABF6FE900312E2B /* Build configuration list for PBXProject "新加坡中文电台" */ = {
+		9409E1111ABF6FE900312E2B /* Build configuration list for PBXProject "狮城电台" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9409E1361ABF6FEA00312E2B /* Debug */,

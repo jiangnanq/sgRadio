@@ -5,15 +5,15 @@
      "name": "YES 933",
      "streamURL": "http://mediacorp-web.rastream.com/933fm",
      "imageURL": "station-yes933",
-     "desc": "YES 933",
-     "longDesc": "Chinese Music"
+     "desc": "顶尖流行音乐电台",
+     "longDesc": "6:00am - 10:00am 大咖一起来 （Jeff / 林佩芬 / 钟坤华） \n12:00am - 2:00pm 两碗冬瓜汤 （田铭耀，萧嘉蕙） \n2:00pm - 4:00pm 快乐添加 （萧嘉蕙）\n4:00pm - 8:00pm 棒棒傍晚班(陈彦维，谢家发，蔡伟彬) \n8:00pm - 12:00 midnight 宁，可听一听(陈宁，方伟杰)\n周三 8:00pm - 9:00pm 道涵周记（庄道涵）\n周日 12:00am - 2:00pm 醉心龙虎榜（陈宁，钟坤华）\n周一 8:00pm - 9:00pm 全球华语排行榜(谢家发）"
      },
      {
      "name": "Love 97.2FM",
      "streamURL": "http://mediacorp-web.rastream.com/972fm",
      "imageURL": "station-love972",
      "desc": "最愛972",
-     "longDesc": "最愛972"
+     "longDesc": "7:00am - 10:00am 早安！玉建煌崇 （陈碧玉，周崇庆，陈建彬，李国煌） \n10:00am - 11:00am 彬哥最爱美梅 （陈建斌，叶咏梅） \n11:00am - 2:00pm 最爱life礼（蔡礼莲）\n2:00pm - 5:00pm 靓妈来了！(陈粉樱) \n5:00pm - 8:00pm 超级WW秀(洪圣安，曾晓英)\n8:00pm - 9:00pm 给Wal一小时（洪圣安）\n周六 10:00am-12:00am 绝对金曲 \n周日 2:00pm - 7:00pm 最爱k歌 8:00pm - 11:00pm 走过岁月的歌"
      },
      {
      "name": "CLASS 95",
@@ -34,7 +34,7 @@
      "streamURL": "http://playerservices.streamtheworld.com/api/livestream-redirect/883JIA.mp3",
      "imageURL": "station-883jiafm",
      "desc": "新加坡唯一双语电台",
-     "longDesc": "新加坡唯一双语电台"
+     "longDesc": "6:00am - 10:00am 大家早上好（Robin + 恺樱) \n10:00am - 2:00pm 哈比人(淑慧 ＋ Ben) \n2:00pm - 4:00pm 午后最完美(诗涵) \n4:00pm - 8:00pm 娜么有铭(家铭 ＋ 丽娜) \n8:00pm - 12:00 midnight 夜晚最有Feel(承尧)"
      }
     ]
 }

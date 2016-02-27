@@ -170,7 +170,7 @@ class NowPlayingViewController: UIViewController {
         radioPlayer.play()
         self.setupAudioSession()
         
-        updateLabels("Loading Station...")
+        updateLabels("摇一摇即可收藏歌曲")
         
         // songLabel animate
         songLabel.animation = "flash"
@@ -220,7 +220,7 @@ class NowPlayingViewController: UIViewController {
         playButtonEnable()
         
         radioPlayer.pause()
-        updateLabels("Station Paused...")
+        updateLabels("暂停播放...")
         nowPlayingImageView.stopAnimating()
         
         // Update StationsVC
@@ -242,7 +242,7 @@ class NowPlayingViewController: UIViewController {
         }
     }
     @IBAction func saveSongToFavorite(sender:UIButton){
-        let optionMenu = UIAlertController(title: nil, message: "Saved", preferredStyle: .ActionSheet)
+        let optionMenu = UIAlertController(title: nil, message: "收藏歌曲", preferredStyle: .ActionSheet)
         let option1 = UIAlertAction(title: "收藏这首歌曲", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.saveThisSong()
@@ -269,24 +269,20 @@ class NowPlayingViewController: UIViewController {
     
     @IBAction func autoStopPressed() {
         let optionMenu = UIAlertController(title: nil, message: "自动停止", preferredStyle:.ActionSheet)
-        let option1 = UIAlertAction(title: "15分钟", style: .Default, handler: {
+        let option1 = UIAlertAction(title: "15分钟后", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Will stop in 15mins")
             self.sleepCounter?.startTimer(900)
         })
-        let option2 = UIAlertAction(title: "30分钟", style: .Default, handler: {
+        let option2 = UIAlertAction(title: "30分钟后", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Will stop in 30mins")
             self.sleepCounter?.startTimer(1800)
         })
-        let option3 = UIAlertAction(title: "45分钟", style: .Default, handler: {
+        let option3 = UIAlertAction(title: "45分钟后", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Will stop in 45mins")
             self.sleepCounter?.startTimer(2700)
         })
-        let option4 = UIAlertAction(title: "60分钟", style: .Default, handler: {
+        let option4 = UIAlertAction(title: "60分钟后", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Will stop in 60mins")
             self.sleepCounter?.startTimer(3600)
         })
         let option5 = UIAlertAction(title: "取消", style: .Default, handler: {
@@ -685,8 +681,8 @@ class NowPlayingViewController: UIViewController {
 }
 extension NowPlayingViewController:countDelegate {
     func didUpdateEverySeconds(statusString: String) {
-        if (statusString == "Sleep") {
-            self.autoStopButton.setTitle("Sleep", forState: UIControlState.Normal)
+        if (statusString == "自动停止") {
+            self.autoStopButton.setTitle("自动停止", forState: UIControlState.Normal)
             pausePressed()
             return
         }

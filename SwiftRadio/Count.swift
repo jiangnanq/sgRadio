@@ -68,7 +68,7 @@ class Count :NSObject {
         if now.compare(self.timeToStop) == NSComparisonResult.OrderedDescending {
             self.sleepingMode = false
             self.sleepTimer.invalidate()
-            resultString = "Sleep"
+            resultString = "自动停止"
         }else {
             resultString = dateComponetsFormatter.stringFromTimeInterval(interval)!
         }
@@ -89,7 +89,7 @@ class Count :NSObject {
             let dataUsageDouble = Double(self.playingTimeTotalizer * 25)
             var dataUsageString = ""
             let dataUsageDoubleInM = dataUsageDouble/1000
-            dataUsageString = String(format: "已经用了%.1fMb流量", dataUsageDoubleInM)
+            dataUsageString = String(format: "已用%.1fMb流量", dataUsageDoubleInM)
             self.delegate?.didUpdateDataUsage(dataUsageString)
         }
     }

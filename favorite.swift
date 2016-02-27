@@ -15,7 +15,6 @@ class favoriteSongs: NSObject {
         super.init()
         DataManager.getSongsFromFileWithSuccess() { songs in
             self.favoriteTracks = songs
-            self.showAllSongs()
         }
     }
     
@@ -24,14 +23,12 @@ class favoriteSongs: NSObject {
         if !self.favoriteTracks.contains(aSong){
             self.favoriteTracks.append(aSong)
             DataManager.saveFavoriteSongToFile(self.favoriteTracks)
-            self.showAllSongs()
         }
     }
     
     func clearAllSongs() {
         self.favoriteTracks=[]
         DataManager.saveFavoriteSongToFile(self.favoriteTracks)
-        self.showAllSongs()
     }
     
     func showAllSongs() {
@@ -58,5 +55,9 @@ class favoriteSongs: NSObject {
             }
         }
         return allSongText
+    }
+    
+    func saveAllSongs() {
+        DataManager.saveFavoriteSongToFile(self.favoriteTracks)
     }
 }

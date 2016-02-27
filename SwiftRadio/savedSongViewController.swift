@@ -65,7 +65,6 @@ extension savedSongViewController:UITableViewDelegate {
     
     func tableView(savedSongTable: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            print ("delete this song")
             self.allSavedSongs.removeAtIndex(indexPath.row)
             self.savedSongs?.favoriteTracks.removeAtIndex(indexPath.row)
             self.savedSongs?.saveAllSongs()
