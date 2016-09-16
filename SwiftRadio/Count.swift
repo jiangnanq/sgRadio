@@ -56,7 +56,7 @@ class Count :NSObject {
         let secondsToAdd = Double(timeIntervalInSeconds)
         self.timeToStop = self.timeToStart.dateByAddingTimeInterval(secondsToAdd)
         self.sleepingMode = true
-        self.sleepTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "everySecondSleep", userInfo: nil, repeats: true)
+        self.sleepTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(Count.everySecondSleep), userInfo: nil, repeats: true)
     }
     
     func everySecondSleep() {
@@ -76,7 +76,7 @@ class Count :NSObject {
     }
     
     func startPlayer() {
-        self.dataUsageTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "dataUsageTotalizer", userInfo: nil, repeats: true)
+        self.dataUsageTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(Count.dataUsageTotalizer), userInfo: nil, repeats: true)
     }
     
     func stopPlayer() {
@@ -85,7 +85,7 @@ class Count :NSObject {
     
     func dataUsageTotalizer() {
         if self.checkWifiConnection() {
-            self.playingTimeTotalizer++
+            self.playingTimeTotalizer += 1
             let dataUsageDouble = Double(self.playingTimeTotalizer * 25)
             var dataUsageString = ""
             let dataUsageDoubleInM = dataUsageDouble/1000
