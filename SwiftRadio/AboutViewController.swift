@@ -26,7 +26,7 @@ class AboutViewController: UIViewController {
     // MARK: - IBActions
     //*****************************************************************
     
-    @IBAction func emailButtonDidTouch(sender: UIButton) {
+    @IBAction func emailButtonDidTouch(_ sender: UIButton) {
         
         // Use your own email address & subject
         let receipients = ["sgradio2016@gmail.com"]
@@ -36,17 +36,17 @@ class AboutViewController: UIViewController {
         let configuredMailComposeViewController = configureMailComposeViewController(receipients, subject: subject, messageBody: messageBody)
         
         if canSendMail() {
-            self.presentViewController(configuredMailComposeViewController, animated: true, completion: nil)
+            self.present(configuredMailComposeViewController, animated: true, completion: nil)
         } else {
             showSendMailErrorAlert()
         }
     }
     
-    @IBAction func websiteButtonDidTouch(sender: UIButton) {
+    @IBAction func websiteButtonDidTouch(_ sender: UIButton) {
         
         // Use your own website here
-        if let url = NSURL(string: "https://sgradio2016.wordpress.com") {
-            UIApplication.sharedApplication().openURL(url)
+        if let url = URL(string: "https://sgradio2016.wordpress.com") {
+            UIApplication.shared.openURL(url)
         }
     }
 
@@ -58,15 +58,15 @@ class AboutViewController: UIViewController {
 
 extension AboutViewController: MFMailComposeViewControllerDelegate {
     
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        controller.dismissViewControllerAnimated(true, completion: nil)
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
     
     func canSendMail() -> Bool {
         return MFMailComposeViewController.canSendMail()
     }
     
-    func configureMailComposeViewController(recepients: [String], subject: String, messageBody: String) -> MFMailComposeViewController {
+    func configureMailComposeViewController(_ recepients: [String], subject: String, messageBody: String) -> MFMailComposeViewController {
         
         let mailComposerVC = MFMailComposeViewController()
         mailComposerVC.mailComposeDelegate = self

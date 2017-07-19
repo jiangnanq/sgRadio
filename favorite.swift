@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 class favoriteSongs: NSObject {
     var favoriteTracks = [String]()
     static let sharedInstance = favoriteSongs()
@@ -18,7 +19,7 @@ class favoriteSongs: NSObject {
         }
     }
     
-    func addOneSong(aTrack:Track) {
+    func addOneSong(_ aTrack:Track) {
         let aSong = aTrack.title + ","+aTrack.artist + "," + aTrack.artworkURL
         if !self.favoriteTracks.contains(aSong){
             self.favoriteTracks.append(aSong)
@@ -39,7 +40,7 @@ class favoriteSongs: NSObject {
         }
     }
     
-    func checkSongExist(aTrack:Track) -> Bool {
+    func checkSongExist(_ aTrack:Track) -> Bool {
         let aSong = aTrack.title + "," + aTrack.artist + "," + aTrack.artworkURL
         return self.favoriteTracks.contains(aSong)
     }
@@ -48,8 +49,8 @@ class favoriteSongs: NSObject {
         var allSongText = ""
         for aSong in self.favoriteTracks {
             if aSong != ""{
-                let title = aSong.componentsSeparatedByString(",")[0]
-                let artist = aSong.componentsSeparatedByString(",")[1]
+                let title = aSong.components(separatedBy: ",")[0]
+                let artist = aSong.components(separatedBy: ",")[1]
                 let songInfo = title + ":" + artist
                 allSongText = allSongText + "\n" + songInfo
             }

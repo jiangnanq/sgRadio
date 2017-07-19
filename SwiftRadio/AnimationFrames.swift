@@ -20,7 +20,7 @@ class AnimationFrames {
             }
         }
         
-        for (var i = 2; i > 0; i -= 1) {
+        for i in [1...2].reversed() {
             if let image = UIImage(named: "NowPlayingBars-\(i)") {
                 animationFrames.append(image)
             }

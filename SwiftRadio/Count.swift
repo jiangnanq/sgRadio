@@ -9,74 +9,74 @@
 import Foundation
 
 protocol countDelegate: class {
-    func didUpdateEverySeconds(statusString : String)
-    func didUpdateDataUsage(dataUsageString : String)
+    func didUpdateEverySeconds(_ statusString : String)
+    func didUpdateDataUsage(_ dataUsageString : String)
 }
 
 class Count :NSObject {
-    var timeToStart         : NSDate
+    var timeToStart         : Date
     var timeInterval        : UInt32        //seconds to stop
     var remainTimeString    : String
     var sleepingMode        : Bool
-    var timeToStop          : NSDate
+    var timeToStop          : Date
     var playingTimeTotalizer: UInt32        //playing time in seconds
-    var sleepTimer = NSTimer()
-    var dataUsageTimer = NSTimer()
+    var sleepTimer = Timer()
+    var dataUsageTimer = Timer()
     static let sharedInstance = Count()
     weak var delegate: countDelegate?
-    let reachability = Reachability.reachabilityForInternetConnection()
+    let reachability = Reachability.forInternetConnection()
  
     override init() {
-        timeToStart = NSDate()
+        timeToStart = Date()
         self.timeInterval = 0
         remainTimeString = ""
         sleepingMode = false
-        timeToStop = NSDate()
+        timeToStop = Date()
         playingTimeTotalizer = 0
     }
     
     func checkRemainingTime() ->String {
-        let now = NSDate()
-        let dateComponentsFormatter = NSDateComponentsFormatter()
-        dateComponentsFormatter.unitsStyle = NSDateComponentsFormatterUnitsStyle.Positional
-        let interval = self.timeToStop.timeIntervalSinceDate(now)
-        if now.compare(self.timeToStop) == NSComparisonResult.OrderedDescending {
+        let now = Date()
+        let dateComponentsFormatter = DateComponentsFormatter()
+        dateComponentsFormatter.unitsStyle = DateComponentsFormatter.UnitsStyle.positional
+        let interval = self.timeToStop.timeIntervalSince(now)
+        if now.compare(self.timeToStop) == ComparisonResult.orderedDescending {
             self.sleepingMode = false
         }
-        return dateComponentsFormatter.stringFromTimeInterval(interval)!
+        return dateComponentsFormatter.string(from: interval)!
     }
     
     func checkMode() ->Bool {
         return self.sleepingMode
     }
     
-    func startTimer(timeIntervalInSeconds:UInt32) {
+    func startTimer(_ timeIntervalInSeconds:UInt32) {
         self.timeInterval = timeIntervalInSeconds
-        self.timeToStart = NSDate()
+        self.timeToStart = Date()
         let secondsToAdd = Double(timeIntervalInSeconds)
-        self.timeToStop = self.timeToStart.dateByAddingTimeInterval(secondsToAdd)
+        self.timeToStop = self.timeToStart.addingTimeInterval(secondsToAdd)
         self.sleepingMode = true
-        self.sleepTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(Count.everySecondSleep), userInfo: nil, repeats: true)
+        self.sleepTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(Count.everySecondSleep), userInfo: nil, repeats: true)
     }
     
     func everySecondSleep() {
-        let now = NSDate()
+        let now = Date()
         var resultString = ""
-        let dateComponetsFormatter = NSDateComponentsFormatter()
-        dateComponetsFormatter.unitsStyle = NSDateComponentsFormatterUnitsStyle.Positional
-        let interval = self.timeToStop.timeIntervalSinceDate(now)
-        if now.compare(self.timeToStop) == NSComparisonResult.OrderedDescending {
+        let dateComponetsFormatter = DateComponentsFormatter()
+        dateComponetsFormatter.unitsStyle = DateComponentsFormatter.UnitsStyle.positional
+        let interval = self.timeToStop.timeIntervalSince(now)
+        if now.compare(self.timeToStop) == ComparisonResult.orderedDescending {
             self.sleepingMode = false
             self.sleepTimer.invalidate()
             resultString = "自动停止"
         }else {
-            resultString = dateComponetsFormatter.stringFromTimeInterval(interval)!
+            resultString = dateComponetsFormatter.string(from: interval)!
         }
         self.delegate?.didUpdateEverySeconds(resultString)
     }
     
     func startPlayer() {
-        self.dataUsageTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(Count.dataUsageTotalizer), userInfo: nil, repeats: true)
+        self.dataUsageTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(Count.dataUsageTotalizer), userInfo: nil, repeats: true)
     }
     
     func stopPlayer() {
@@ -95,7 +95,7 @@ class Count :NSObject {
     }
     
     func checkWifiConnection() -> Bool{
-        return self.reachability.currentReachabilityStatus().rawValue == ReachableViaWWAN.rawValue
+        return self.reachability!.currentReachabilityStatus().rawValue == ReachableViaWWAN.rawValue
     }
 
 }

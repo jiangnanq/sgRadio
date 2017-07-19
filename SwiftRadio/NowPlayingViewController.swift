@@ -8,6 +8,8 @@
 
 import UIKit
 import MediaPlayer
+import SwiftyJSON
+import Spring
 
 //*****************************************************************
 // Protocol
@@ -15,9 +17,9 @@ import MediaPlayer
 //*****************************************************************
 
 protocol NowPlayingViewControllerDelegate: class {
-    func songMetaDataDidUpdate(track: Track)
-    func artworkDidUpdate(track: Track)
-    func trackPlayingToggled(track: Track)
+    func songMetaDataDidUpdate(_ track: Track)
+    func artworkDidUpdate(_ track: Track)
+    func trackPlayingToggled(_ track: Track)
 }
 
 //*****************************************************************
@@ -40,7 +42,7 @@ class NowPlayingViewController: UIViewController {
     @IBOutlet weak var saveSongButton: UIButton!
     
     var currentStation: RadioStation!
-    var downloadTask: NSURLSessionDownloadTask?
+    var downloadTask: URLSessionDownloadTask?
     var iPhone4 = false
     var justBecameActive = false
     var newStation = true
@@ -48,7 +50,7 @@ class NowPlayingViewController: UIViewController {
     let radioPlayer = Player.radio
     var track: Track!
     var mpVolumeSlider = UISlider()
-    var sleepTimer = NSTimer()
+    var sleepTimer = Timer()
     var sleepCounter: Count?
     var savedSongs: favoriteSongs?
     
@@ -79,15 +81,15 @@ class NowPlayingViewController: UIViewController {
         setupPlayer()
         
         // Notification for when app becomes active
-        NSNotificationCenter.defaultCenter().addObserver(self,
+        NotificationCenter.default.addObserver(self,
             selector: #selector(NowPlayingViewController.didBecomeActiveNotificationReceived),
-            name:"UIApplicationDidBecomeActiveNotification",
+            name:NSNotification.Name(rawValue: "UIApplicationDidBecomeActiveNotification"),
             object: nil)
         
         // Notification for MediaPlayer metadata updated
-        NSNotificationCenter.defaultCenter().addObserver(self,
+        NotificationCenter.default.addObserver(self,
             selector: #selector(NowPlayingViewController.metadataUpdated(_:)),
-            name:MPMoviePlayerTimedMetadataUpdatedNotification,
+            name:NSNotification.Name.MPMoviePlayerTimedMetadataUpdated,
             object: nil);
         self.sleepCounter = Count.sharedInstance
         self.savedSongs = favoriteSongs.sharedInstance
@@ -123,11 +125,11 @@ class NowPlayingViewController: UIViewController {
     
     deinit {
         // Be a good citizen
-        NSNotificationCenter.defaultCenter().removeObserver(self,
-            name:"UIApplicationDidBecomeActiveNotification",
+        NotificationCenter.default.removeObserver(self,
+            name:NSNotification.Name(rawValue: "UIApplicationDidBecomeActiveNotification"),
             object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self,
-            name: MPMoviePlayerTimedMetadataUpdatedNotification,
+        NotificationCenter.default.removeObserver(self,
+            name: NSNotification.Name.MPMoviePlayerTimedMetadataUpdated,
             object: nil)
     }
     
@@ -138,34 +140,34 @@ class NowPlayingViewController: UIViewController {
     func setupPlayer() {
         radioPlayer.view.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         radioPlayer.view.sizeToFit()
-        radioPlayer.movieSourceType = MPMovieSourceType.Streaming
-        radioPlayer.fullscreen = false
+        radioPlayer.movieSourceType = MPMovieSourceType.streaming
+        radioPlayer.isFullscreen = false
         radioPlayer.shouldAutoplay = true
         radioPlayer.prepareToPlay()
-        radioPlayer.controlStyle = MPMovieControlStyle.None
+        radioPlayer.controlStyle = MPMovieControlStyle.none
     }
   
     func setupVolumeSlider() {
         // Note: This slider implementation uses a MPVolumeView
         // The volume slider only works in devices, not the simulator.
-        volumeParentView.backgroundColor = UIColor.clearColor()
+        volumeParentView.backgroundColor = UIColor.clear
         let volumeView = MPVolumeView(frame: volumeParentView.bounds)
         for view in volumeView.subviews {
             let uiview: UIView = view as UIView
-             if (uiview.description as NSString).rangeOfString("MPVolumeSlider").location != NSNotFound {
+             if (uiview.description as NSString).range(of: "MPVolumeSlider").location != NSNotFound {
                 mpVolumeSlider = (uiview as! UISlider)
             }
         }
         
         let thumbImageNormal = UIImage(named: "slider-ball")
-        slider?.setThumbImage(thumbImageNormal, forState: .Normal)
+        slider?.setThumbImage(thumbImageNormal, for: UIControlState())
         
     }
     
     func stationDidChange() {
         radioPlayer.stop()
         
-        radioPlayer.contentURL = NSURL(string: currentStation.stationStreamURL)
+        radioPlayer.contentURL = URL(string: currentStation.stationStreamURL)
         radioPlayer.prepareToPlay()
         radioPlayer.play()
         self.setupAudioSession()
@@ -228,7 +230,7 @@ class NowPlayingViewController: UIViewController {
         self.sleepCounter?.stopPlayer()
     }
     
-    @IBAction func volumeChanged(sender:UISlider) {
+    @IBAction func volumeChanged(_ sender:UISlider) {
         mpVolumeSlider.value = sender.value
     }
     
@@ -236,22 +238,22 @@ class NowPlayingViewController: UIViewController {
         EZLoadingActivity.show("正在收藏", disableUI: false)
         self.savedSongs?.addOneSong(self.track)
         let delay = 0.5 * Double(NSEC_PER_SEC)
-        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-        dispatch_after(time, dispatch_get_main_queue()) { () -> Void in
+        let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.asyncAfter(deadline: time) { () -> Void in
             EZLoadingActivity.hide(success: true, animated: false)
         }
     }
-    @IBAction func saveSongToFavorite(sender:UIButton){
-        let optionMenu = UIAlertController(title: nil, message: "收藏歌曲", preferredStyle: .ActionSheet)
-        let option1 = UIAlertAction(title: "收藏这首歌曲", style: .Default, handler: {
+    @IBAction func saveSongToFavorite(_ sender:UIButton){
+        let optionMenu = UIAlertController(title: nil, message: "收藏歌曲", preferredStyle: .actionSheet)
+        let option1 = UIAlertAction(title: "收藏这首歌曲", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.saveThisSong()
         })
-        let option2 = UIAlertAction(title: "查看收藏夹", style: .Default, handler: {
+        let option2 = UIAlertAction(title: "查看收藏夹", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.showSavedSongsList()
         })
-        let option3 = UIAlertAction(title: "取消", style: .Default, handler: {
+        let option3 = UIAlertAction(title: "取消", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Cancel")
         })
@@ -260,32 +262,32 @@ class NowPlayingViewController: UIViewController {
         optionMenu.addAction(option2)
         optionMenu.addAction(option3)
         
-        self.presentViewController(optionMenu, animated: true, completion: nil)
+        self.present(optionMenu, animated: true, completion: nil)
 
     }
     func showSavedSongsList() {
-        performSegueWithIdentifier("savedSongs", sender: self)
+        performSegue(withIdentifier: "savedSongs", sender: self)
     }
     
     @IBAction func autoStopPressed() {
-        let optionMenu = UIAlertController(title: nil, message: "自动停止", preferredStyle:.ActionSheet)
-        let option1 = UIAlertAction(title: "15分钟后", style: .Default, handler: {
+        let optionMenu = UIAlertController(title: nil, message: "自动停止", preferredStyle:.actionSheet)
+        let option1 = UIAlertAction(title: "15分钟后", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.sleepCounter?.startTimer(900)
         })
-        let option2 = UIAlertAction(title: "30分钟后", style: .Default, handler: {
+        let option2 = UIAlertAction(title: "30分钟后", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.sleepCounter?.startTimer(1800)
         })
-        let option3 = UIAlertAction(title: "45分钟后", style: .Default, handler: {
+        let option3 = UIAlertAction(title: "45分钟后", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.sleepCounter?.startTimer(2700)
         })
-        let option4 = UIAlertAction(title: "60分钟后", style: .Default, handler: {
+        let option4 = UIAlertAction(title: "60分钟后", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.sleepCounter?.startTimer(3600)
         })
-        let option5 = UIAlertAction(title: "取消", style: .Default, handler: {
+        let option5 = UIAlertAction(title: "取消", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Cancel")
         })
@@ -296,7 +298,7 @@ class NowPlayingViewController: UIViewController {
         optionMenu.addAction(option4)
         optionMenu.addAction(option5)
         
-        self.presentViewController(optionMenu, animated: true, completion: nil)
+        self.present(optionMenu, animated: true, completion: nil)
         
     }
     
@@ -306,15 +308,16 @@ class NowPlayingViewController: UIViewController {
     // MARK: - UI Helper Methods
     //*****************************************************************
     
-    func convert(var st: String) ->String{
+    func convert(_ st: String) ->String{
+        var st = st
         
         var byte:[UInt8] = []
         for codeUnit in st.unicodeScalars{
             byte.append(UInt8(codeUnit.value))
         }
         
-        let t1 = NSData(bytes: byte, length: byte.count)
-        let t2 = String(data: t1, encoding: NSUTF8StringEncoding)
+        let t1 = Data(bytes: UnsafePointer<UInt8>(byte), count: byte.count)
+        let t2 = String(data: t1, encoding: String.Encoding.utf8)
         return t2!
     }
     
@@ -336,7 +339,7 @@ class NowPlayingViewController: UIViewController {
         }
     }
     
-    func updateLabels(statusMessage: String = "") {
+    func updateLabels(_ statusMessage: String = "") {
         
         if statusMessage != "" {
             // There's a an interruption or pause in the audio queue
@@ -353,21 +356,21 @@ class NowPlayingViewController: UIViewController {
         
         // Hide station description when album art is displayed or on iPhone 4
         if track.artworkLoaded || iPhone4 {
-            stationDescLabel.hidden = true
+            stationDescLabel.isHidden = true
         } else {
-            stationDescLabel.hidden = false
+            stationDescLabel.isHidden = false
             stationDescLabel.text = currentStation.stationDesc
         }
     }
     
-    func playButtonEnable(enabled: Bool = true) {
+    func playButtonEnable(_ enabled: Bool = true) {
         if enabled {
-            playButton.enabled = true
-            pauseButton.enabled = false
+            playButton.isEnabled = true
+            pauseButton.isEnabled = false
             track.isPlaying = false
         } else {
-            playButton.enabled = false
-            pauseButton.enabled = true
+            playButton.isEnabled = false
+            pauseButton.isEnabled = true
             track.isPlaying = true
         }
     }
@@ -376,16 +379,16 @@ class NowPlayingViewController: UIViewController {
         
         // Setup ImageView
         nowPlayingImageView = UIImageView(image: UIImage(named: "NowPlayingBars-3"))
-        nowPlayingImageView.autoresizingMask = UIViewAutoresizing.None
-        nowPlayingImageView.contentMode = UIViewContentMode.Center
+        nowPlayingImageView.autoresizingMask = UIViewAutoresizing()
+        nowPlayingImageView.contentMode = UIViewContentMode.center
         
         // Create Animation
         nowPlayingImageView.animationImages = AnimationFrames.createFrames()
         nowPlayingImageView.animationDuration = 0.7
         
         // Create Top BarButton
-        let barButton = UIButton(type: UIButtonType.Custom)
-        barButton.frame = CGRectMake(0, 0, 40, 40);
+        let barButton = UIButton(type: UIButtonType.custom)
+        barButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40);
         barButton.addSubview(nowPlayingImageView)
         nowPlayingImageView.center = barButton.center
         
@@ -406,21 +409,21 @@ class NowPlayingViewController: UIViewController {
         track.artworkLoaded = false
         track.artworkURL = currentStation.stationImageURL
         updateAlbumArtwork()
-        stationDescLabel.hidden = false
+        stationDescLabel.isHidden = false
     }
     
     func updateAlbumArtwork() {
         track.artworkLoaded = false
-        if track.artworkURL.rangeOfString("http") != nil {
+        if track.artworkURL.range(of: "http") != nil {
             
             // Hide station description
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 //self.albumImageView.image = nil
-                self.stationDescLabel.hidden = false
+                self.stationDescLabel.isHidden = false
             }
             
             // Attempt to download album art from an API
-            if let url = NSURL(string: track.artworkURL) {
+            if let url = URL(string: track.artworkURL) {
                 
                 self.downloadTask = self.albumImageView.loadImageWithURL(url) { (image) in
                     
@@ -429,13 +432,13 @@ class NowPlayingViewController: UIViewController {
                     self.track.artworkLoaded = true
                     
                     // Turn off network activity indicator
-                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         
                     // Animate artwork
                     self.albumImageView.animation = "wobble"
                     self.albumImageView.duration = 2
                     self.albumImageView.animate()
-                    self.stationDescLabel.hidden = true
+                    self.stationDescLabel.isHidden = true
 
                     // Update lockscreen
                     self.updateLockScreen()
@@ -447,7 +450,7 @@ class NowPlayingViewController: UIViewController {
             
             // Hide the station description to make room for album art
             if track.artworkLoaded && !self.justBecameActive {
-                self.stationDescLabel.hidden = true
+                self.stationDescLabel.isHidden = true
                 self.justBecameActive = false
             }
             
@@ -474,7 +477,7 @@ class NowPlayingViewController: UIViewController {
     
     func queryAlbumArt() {
         
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         // Construct either LastFM or iTunes API call URL
         let queryURL: String
@@ -484,7 +487,7 @@ class NowPlayingViewController: UIViewController {
             queryURL = String(format: "https://itunes.apple.com/search?term=%@+%@&entity=song", track.artist, track.title)
         }
         
-        let escapedURL = queryURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        let escapedURL = queryURL.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         
         // Query API
         DataManager.getTrackDataWithSuccess(escapedURL!) { (data) in
@@ -494,7 +497,7 @@ class NowPlayingViewController: UIViewController {
                 print("url: \(escapedURL!)")
             }
             
-            let json = JSON(data: data)
+            let json = JSON(data: data!)
             
             if useLastFM {
                 // Get Largest Sized LastFM Image
@@ -506,7 +509,7 @@ class NowPlayingViewController: UIViewController {
                     if let artURL = lastImage["#text"].string {
                         
                         // Check for Default Last FM Image
-                        if artURL.rangeOfString("/noimage/") != nil {
+                        if artURL.range(of: "/noimage/") != nil {
                             self.resetAlbumArtwork()
                             
                         } else {
@@ -526,7 +529,7 @@ class NowPlayingViewController: UIViewController {
             } else {
                 // Use iTunes API. Images are 100px by 100px
                 if let artURL = json["results"][0]["artworkUrl100"].string {
-                    let newURL = artURL.stringByReplacingOccurrencesOfString("100x100", withString: "225x225")
+                    let newURL = artURL.replacingOccurrences(of: "100x100", with: "225x225")
                     
                     if DEBUG_LOG { print("iTunes artURL: \(newURL)") }
                     
@@ -545,16 +548,16 @@ class NowPlayingViewController: UIViewController {
     // MARK: - Segue
     //*****************************************************************
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "InfoDetail" {
-            let infoController = segue.destinationViewController as! InfoDetailViewController
+            let infoController = segue.destination as! InfoDetailViewController
             infoController.currentStation = currentStation
         }
     }
     
-    @IBAction func infoButtonPressed(sender: UIButton) {
-        performSegueWithIdentifier("InfoDetail", sender: self)
+    @IBAction func infoButtonPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "InfoDetail", sender: self)
     }
     
     //*****************************************************************
@@ -566,30 +569,30 @@ class NowPlayingViewController: UIViewController {
         // Update notification/lock screen
         let albumArtwork = MPMediaItemArtwork(image: track.artworkImage!)
         
-        MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
             MPMediaItemPropertyArtist: track.artist,
             MPMediaItemPropertyTitle: track.title,
             MPMediaItemPropertyArtwork: albumArtwork
         ]
     }
     
-    override func remoteControlReceivedWithEvent(receivedEvent: UIEvent?) {
-        super.remoteControlReceivedWithEvent(receivedEvent)
+    override func remoteControlReceived(with receivedEvent: UIEvent?) {
+        super.remoteControlReceived(with: receivedEvent)
         
-        if receivedEvent!.type == UIEventType.RemoteControl {
+        if receivedEvent!.type == UIEventType.remoteControl {
             
             switch receivedEvent!.subtype {
-            case .RemoteControlPlay:
+            case .remoteControlPlay:
                 playPressed()
-            case .RemoteControlStop:
+            case .remoteControlStop:
                 pausePressed()
-            case .RemoteControlTogglePlayPause:
+            case .remoteControlTogglePlayPause:
                 if track.isPlaying {
                     pausePressed()
                 }else {
                     playPressed()
                 }
-            case .RemoteControlPause:
+            case .remoteControlPause:
                 pausePressed()
             default:
                 break
@@ -597,20 +600,20 @@ class NowPlayingViewController: UIViewController {
         }
     }
     
-    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
-        if motion == .MotionShake {
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
             self.saveThisSong()
         }
     }
     
-    func processMetaData(firstMeta:MPTimedMetadata) {
+    func processMetaData(_ firstMeta:MPTimedMetadata) {
         let metaData = firstMeta.value as! String
         print("meta data is:\(metaData)")
         var stringParts = [String]()
-        if metaData.rangeOfString(" - ") != nil {
-            stringParts = metaData.componentsSeparatedByString(" - ")
+        if metaData.range(of: " - ") != nil {
+            stringParts = metaData.components(separatedBy: " - ")
         } else {
-            stringParts = metaData.componentsSeparatedByString("-")
+            stringParts = metaData.components(separatedBy: "-")
         }
         track.artist = self.convert(stringParts[0])
         track.title = self.convert(stringParts[0])
@@ -628,7 +631,7 @@ class NowPlayingViewController: UIViewController {
     // MARK: - MetaData Updated Notification
     //*****************************************************************
     
-    func metadataUpdated(n: NSNotification)
+    func metadataUpdated(_ n: Notification)
     {
         if(radioPlayer.timedMetadata != nil && radioPlayer.timedMetadata.count > 0)
         {
@@ -637,7 +640,7 @@ class NowPlayingViewController: UIViewController {
 //            let firstMeta: MPTimedMetadata = radioPlayer.timedMetadata.first as! MPTimedMetadata
             self.processMetaData(radioPlayer.timedMetadata.first as! MPTimedMetadata)
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 
                 if currentSongName != self.track.title {
                     
@@ -670,19 +673,19 @@ class NowPlayingViewController: UIViewController {
     }
 }
 extension NowPlayingViewController:countDelegate {
-    func didUpdateEverySeconds(statusString: String) {
+    func didUpdateEverySeconds(_ statusString: String) {
         if (statusString == "自动停止") {
-            self.autoStopButton.setTitle("自动停止", forState: UIControlState.Normal)
+            self.autoStopButton.setTitle("自动停止", for: UIControlState())
             pausePressed()
             return
         }
         UIView.performWithoutAnimation({ () -> Void in
-            self.autoStopButton.setTitle(statusString, forState: UIControlState.Normal)
+            self.autoStopButton.setTitle(statusString, for: UIControlState())
             self.autoStopButton.layoutIfNeeded()
         })
     }
     
-    func didUpdateDataUsage(dataUsageString : String) {
+    func didUpdateDataUsage(_ dataUsageString : String) {
         self.dataUsageLabel.text = dataUsageString
     }
 }

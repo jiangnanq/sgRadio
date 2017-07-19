@@ -31,8 +31,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "51"
             endingLineNumber = "51"
-            landmarkName = "allSongsInText()"
-            landmarkType = "5">
+            landmarkName = "addOneSong(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -47,8 +47,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "53"
             endingLineNumber = "53"
-            landmarkName = "allSongsInText()"
-            landmarkType = "5">
+            landmarkName = "addOneSong(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -90,12 +90,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftRadio/NowPlayingViewController.swift"
-            timestampString = "491665344.991508"
+            timestampString = "522162513.859831"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "636"
-            endingLineNumber = "636"
-            landmarkName = "metadataUpdated(n:)"
+            startingLineNumber = "637"
+            endingLineNumber = "637"
+            landmarkName = "metadataUpdated(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -106,12 +106,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftRadio/NowPlayingViewController.swift"
-            timestampString = "491665344.991508"
+            timestampString = "522162513.859831"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "649"
-            endingLineNumber = "649"
-            landmarkName = "metadataUpdated(n:)"
+            startingLineNumber = "650"
+            endingLineNumber = "650"
+            landmarkName = "metadataUpdated(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -122,12 +122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftRadio/NowPlayingViewController.swift"
-            timestampString = "491665344.991508"
+            timestampString = "522162513.859831"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "615"
-            endingLineNumber = "615"
-            landmarkName = "processMetaData(firstMeta:)"
+            startingLineNumber = "616"
+            endingLineNumber = "616"
+            landmarkName = "processMetaData(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
