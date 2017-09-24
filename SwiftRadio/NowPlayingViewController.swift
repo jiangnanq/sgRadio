@@ -311,12 +311,12 @@ class NowPlayingViewController: UIViewController {
     func convert(_ st: String) ->String{
         var st = st
         
-        var byte:[UInt8] = []
+        var byte:[UInt] = []
         for codeUnit in st.unicodeScalars{
-            byte.append(UInt8(codeUnit.value))
+            byte.append(UInt(codeUnit.value))
         }
         
-        let t1 = Data(bytes: UnsafePointer<UInt8>(byte), count: byte.count)
+        let t1 = Data(bytes: UnsafePointer<UInt>(byte), count: byte.count)
         let t2 = String(data: t1, encoding: String.Encoding.utf8)
         return t2!
     }
@@ -615,10 +615,18 @@ class NowPlayingViewController: UIViewController {
         } else {
             stringParts = metaData.components(separatedBy: "-")
         }
-        track.artist = self.convert(stringParts[0])
-        track.title = self.convert(stringParts[0])
+        if #available(iOS 11.0, *) {
+            track.artist = stringParts[0]
+            track.title = stringParts[1]
+        } else {
+            track.artist = self.convert(stringParts[0])
+            track.title = self.convert(stringParts[0])
+        }
+        
+
         if stringParts.count > 1 {
-            track.title = self.convert(stringParts[1])
+            track.title = stringParts[1]
+//            track.title = self.convert(stringParts[1])
         }
         
        
