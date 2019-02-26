@@ -482,6 +482,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = W6UGG2DPWC;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SwiftRadio",
@@ -493,7 +494,7 @@
 				PRODUCT_NAME = "狮城电台";
 				PROVISIONING_PROFILE = "";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/jiangnanqing/Dropbox/project/SgRadio/<#SwiftRadio#>-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/jiangnanqing/Dropbox/project/oldproject/SgRadio/<#SwiftRadio#>-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -509,6 +510,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = W6UGG2DPWC;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SwiftRadio",
@@ -520,7 +522,7 @@
 				PRODUCT_NAME = "狮城电台";
 				PROVISIONING_PROFILE = "";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/jiangnanqing/Dropbox/project/SgRadio/<#SwiftRadio#>-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/jiangnanqing/Dropbox/project/oldproject/SgRadio/<#SwiftRadio#>-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
