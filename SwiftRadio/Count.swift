@@ -59,7 +59,7 @@ class Count :NSObject {
         self.sleepTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(Count.everySecondSleep), userInfo: nil, repeats: true)
     }
     
-    func everySecondSleep() {
+    @objc func everySecondSleep() {
         let now = Date()
         var resultString = ""
         let dateComponetsFormatter = DateComponentsFormatter()
@@ -83,7 +83,7 @@ class Count :NSObject {
         self.dataUsageTimer.invalidate()
     }
     
-    func dataUsageTotalizer() {
+    @objc func dataUsageTotalizer() {
         if self.checkWifiConnection() {
             self.playingTimeTotalizer += 1
             let dataUsageDouble = Double(self.playingTimeTotalizer * 25)

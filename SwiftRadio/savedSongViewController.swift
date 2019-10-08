@@ -63,14 +63,14 @@ extension savedSongViewController:UITableViewDelegate {
         return true
     }
     
-    func tableView(_ savedSongTable: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ savedSongTable: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             self.allSavedSongs.remove(at: indexPath.row)
             self.savedSongs?.favoriteTracks.remove(at: indexPath.row)
             self.savedSongs?.saveAllSongs()
             var selectIndex = [IndexPath]()
             selectIndex.append(indexPath)
-            savedSongTable.deleteRows(at: selectIndex, with: UITableViewRowAnimation.fade)
+            savedSongTable.deleteRows(at: selectIndex, with: UITableView.RowAnimation.fade)
             DispatchQueue.main.async(execute: { () -> Void in
                 self.savedSongTable?.reloadData()
             })            

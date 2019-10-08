@@ -116,7 +116,7 @@ class NowPlayingViewController: UIViewController {
         self.sleepCounter!.delegate = self
     }
     
-    func didBecomeActiveNotificationReceived() {
+    @objc func didBecomeActiveNotificationReceived() {
         // View became active
         updateLabels()
         justBecameActive = true
@@ -160,7 +160,7 @@ class NowPlayingViewController: UIViewController {
         }
         
         let thumbImageNormal = UIImage(named: "slider-ball")
-        slider?.setThumbImage(thumbImageNormal, for: UIControlState())
+        slider?.setThumbImage(thumbImageNormal, for: UIControl.State())
         
     }
     
@@ -190,7 +190,7 @@ class NowPlayingViewController: UIViewController {
  
     func setupAudioSession() {
         do{
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
         }catch {
             print("error when set player! \(error)" )
         }
@@ -379,15 +379,15 @@ class NowPlayingViewController: UIViewController {
         
         // Setup ImageView
         nowPlayingImageView = UIImageView(image: UIImage(named: "NowPlayingBars-3"))
-        nowPlayingImageView.autoresizingMask = UIViewAutoresizing()
-        nowPlayingImageView.contentMode = UIViewContentMode.center
+        nowPlayingImageView.autoresizingMask = UIView.AutoresizingMask()
+        nowPlayingImageView.contentMode = UIView.ContentMode.center
         
         // Create Animation
         nowPlayingImageView.animationImages = AnimationFrames.createFrames()
         nowPlayingImageView.animationDuration = 0.7
         
         // Create Top BarButton
-        let barButton = UIButton(type: UIButtonType.custom)
+        let barButton = UIButton(type: UIButton.ButtonType.custom)
         barButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40);
         barButton.addSubview(nowPlayingImageView)
         nowPlayingImageView.center = barButton.center
@@ -496,51 +496,51 @@ class NowPlayingViewController: UIViewController {
                 print("API SUCCESSFUL RETURN")
                 print("url: \(escapedURL!)")
             }
+            do {
+                let json = try JSON(data: data!)
             
-            let json = JSON(data: data!)
-            
-            if useLastFM {
-                // Get Largest Sized LastFM Image
-                if let imageArray = json["track"]["album"]["image"].array {
-                    
-                    let arrayCount = imageArray.count
-                    let lastImage = imageArray[arrayCount - 1]
-                    
-                    if let artURL = lastImage["#text"].string {
+                if useLastFM {
+                    // Get Largest Sized LastFM Image
+                    if let imageArray = json["track"]["album"]["image"].array {
                         
-                        // Check for Default Last FM Image
-                        if artURL.range(of: "/noimage/") != nil {
-                            self.resetAlbumArtwork()
+                        let arrayCount = imageArray.count
+                        let lastImage = imageArray[arrayCount - 1]
+                        
+                        if let artURL = lastImage["#text"].string {
+                            
+                            // Check for Default Last FM Image
+                            if artURL.range(of: "/noimage/") != nil {
+                                self.resetAlbumArtwork()
+                                
+                            } else {
+                                // LastFM image found!
+                                self.track.artworkURL = artURL
+                                self.track.artworkLoaded = true
+                                self.updateAlbumArtwork()
+                            }
                             
                         } else {
-                            // LastFM image found!
-                            self.track.artworkURL = artURL
-                            self.track.artworkLoaded = true
-                            self.updateAlbumArtwork()
+                            self.resetAlbumArtwork()
                         }
-                        
                     } else {
                         self.resetAlbumArtwork()
                     }
                 } else {
-                    self.resetAlbumArtwork()
+                    // Use iTunes API. Images are 100px by 100px
+                    if let artURL = json["results"][0]["artworkUrl100"].string {
+                        let newURL = artURL.replacingOccurrences(of: "100x100", with: "225x225")
+                        
+                        if DEBUG_LOG { print("iTunes artURL: \(newURL)") }
+                        
+                        self.track.artworkURL = newURL
+                        self.track.artworkLoaded = true
+                        self.updateAlbumArtwork()
+                    } else {
+                        self.resetAlbumArtwork()
+                    }
                 }
-            
-            } else {
-                // Use iTunes API. Images are 100px by 100px
-                if let artURL = json["results"][0]["artworkUrl100"].string {
-                    let newURL = artURL.replacingOccurrences(of: "100x100", with: "225x225")
-                    
-                    if DEBUG_LOG { print("iTunes artURL: \(newURL)") }
-                    
-                    self.track.artworkURL = newURL
-                    self.track.artworkLoaded = true
-                    self.updateAlbumArtwork()
-                } else {
-                    self.resetAlbumArtwork()
-                }
+            } catch {
             }
-            
         }
     }
     
@@ -579,7 +579,7 @@ class NowPlayingViewController: UIViewController {
     override func remoteControlReceived(with receivedEvent: UIEvent?) {
         super.remoteControlReceived(with: receivedEvent)
         
-        if receivedEvent!.type == UIEventType.remoteControl {
+        if receivedEvent!.type == UIEvent.EventType.remoteControl {
             
             switch receivedEvent!.subtype {
             case .remoteControlPlay:
@@ -600,7 +600,7 @@ class NowPlayingViewController: UIViewController {
         }
     }
     
-    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             self.saveThisSong()
         }
@@ -638,7 +638,7 @@ class NowPlayingViewController: UIViewController {
     // MARK: - MetaData Updated Notification
     //*****************************************************************
     
-    func metadataUpdated(_ n: Notification)
+    @objc func metadataUpdated(_ n: Notification)
     {
         if(radioPlayer.timedMetadata != nil && radioPlayer.timedMetadata.count > 0)
         {
@@ -682,12 +682,12 @@ class NowPlayingViewController: UIViewController {
 extension NowPlayingViewController:countDelegate {
     func didUpdateEverySeconds(_ statusString: String) {
         if (statusString == "自动停止") {
-            self.autoStopButton.setTitle("自动停止", for: UIControlState())
+            self.autoStopButton.setTitle("自动停止", for: UIControl.State())
             pausePressed()
             return
         }
         UIView.performWithoutAnimation({ () -> Void in
-            self.autoStopButton.setTitle(statusString, for: UIControlState())
+            self.autoStopButton.setTitle(statusString, for: UIControl.State())
             self.autoStopButton.layoutIfNeeded()
         })
     }

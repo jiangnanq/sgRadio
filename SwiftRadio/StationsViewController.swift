@@ -42,7 +42,7 @@ class StationsViewController: UIViewController {
         // Setup TableView
         tableView.backgroundColor = UIColor.clear
         tableView.backgroundView = nil
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
         // Setup Pull to Refresh
         setupPullToRefresh()
@@ -54,9 +54,10 @@ class StationsViewController: UIViewController {
         var error: NSError?
         var success: Bool
         do {
-            try AVAudioSession.sharedInstance().setCategory(
-                AVAudioSessionCategoryPlayAndRecord,
-                with: .defaultToSpeaker)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, options: .defaultToSpeaker)
+//            try AVAudioSession.sharedInstance().setCategory(
+//                AVAudioSessionCategoryPlayAndRecord,
+//                with: .defaultToSpeaker)
             success = true
         } catch let error1 as NSError {
             error = error1
@@ -78,7 +79,7 @@ class StationsViewController: UIViewController {
         // If a track is playing, display title & artist information and animation
         if currentTrack != nil && currentTrack!.isPlaying {
             let title = currentStation!.stationName + ": " + currentTrack!.title + " - " + currentTrack!.artist + "..."
-            stationNowPlayingButton.setTitle(title, for: UIControlState())
+            stationNowPlayingButton.setTitle(title, for: UIControl.State())
             nowPlayingAnimationImageView.startAnimating()
         } else {
             nowPlayingAnimationImageView.stopAnimating()
@@ -96,7 +97,7 @@ class StationsViewController: UIViewController {
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refreshControl.backgroundColor = UIColor.black
         self.refreshControl.tintColor = UIColor.white
-        self.refreshControl.addTarget(self, action: #selector(StationsViewController.refresh(_:)), for: UIControlEvents.valueChanged)
+        self.refreshControl.addTarget(self, action: #selector(StationsViewController.refresh(_:)), for: UIControl.Event.valueChanged)
         self.tableView.addSubview(refreshControl)
     }
     
@@ -107,7 +108,7 @@ class StationsViewController: UIViewController {
     
     func createNowPlayingBarButton() {
         if self.navigationItem.rightBarButtonItem == nil {
-            let btn = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: self, action:#selector(StationsViewController.nowPlayingBarButtonPressed))
+            let btn = UIBarButtonItem(title: "", style: UIBarButtonItem.Style.plain, target: self, action:#selector(StationsViewController.nowPlayingBarButtonPressed))
             btn.image = UIImage(named: "btn-nowPlaying")
             self.navigationItem.rightBarButtonItem = btn
         }
@@ -117,7 +118,7 @@ class StationsViewController: UIViewController {
     // MARK: - Actions
     //*****************************************************************
     
-    func nowPlayingBarButtonPressed() {
+    @objc func nowPlayingBarButtonPressed() {
         performSegue(withIdentifier: "NowPlaying", sender: self)
     }
     
@@ -125,7 +126,7 @@ class StationsViewController: UIViewController {
         performSegue(withIdentifier: "NowPlaying", sender: self)
     }
     
-    func refresh(_ sender: AnyObject) {
+    @objc func refresh(_ sender: AnyObject) {
         // Pull to Refresh
         stations.removeAll(keepingCapacity: false)
         loadStationsFromJSON()
@@ -148,11 +149,12 @@ class StationsViewController: UIViewController {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         // Get the Radio Stations
-        DataManager.getStationDataWithSuccess() { (data) in
+        DataManager.getStationDataWithSuccess() { (data) -> Void in
             
             if DEBUG_LOG { print("Stations JSON Found") }
-            
-            let json = JSON(data: data!)
+            do {
+                let json = try JSON(data: data!)
+
             
             if let stationArray = json["station"].array {
                 
@@ -169,6 +171,9 @@ class StationsViewController: UIViewController {
                 
             } else {
                 if DEBUG_LOG { print("JSON Station Loading Error") }
+            }
+            } catch {
+            
             }
             
             // Turn off network indicator in status bar
@@ -240,7 +245,7 @@ extension StationsViewController: UITableViewDataSource {
         if stations.isEmpty {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NothingFound", for: indexPath) 
             cell.backgroundColor = UIColor.clear
-            cell.selectionStyle = UITableViewCellSelectionStyle.none
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
             return cell
             
         } else {
@@ -276,7 +281,7 @@ extension StationsViewController: UITableViewDelegate {
             
             // Set Now Playing Buttons
             let title = stations[indexPath.row].stationName + " - Now Playing..."
-            stationNowPlayingButton.setTitle(title, for: UIControlState())
+            stationNowPlayingButton.setTitle(title, for: UIControl.State())
             stationNowPlayingButton.isEnabled = true
             
             performSegue(withIdentifier: "NowPlaying", sender: indexPath)
@@ -298,7 +303,7 @@ extension StationsViewController: NowPlayingViewControllerDelegate {
     func songMetaDataDidUpdate(_ track: Track) {
         currentTrack = track
         let title = currentStation!.stationName + ": " + currentTrack!.title + " - " + currentTrack!.artist + "..."
-        stationNowPlayingButton.setTitle(title, for: UIControlState())
+        stationNowPlayingButton.setTitle(title, for: UIControl.State())
     }
     
     func trackPlayingToggled(_ track: Track) {
