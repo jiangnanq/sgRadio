@@ -47,7 +47,7 @@ class Count :NSObject {
     }
     
     func checkMode() ->Bool {
-        return self.sleepingMode
+        self.sleepingMode
     }
     
     func startTimer(_ timeIntervalInSeconds:UInt32) {
@@ -95,7 +95,7 @@ class Count :NSObject {
     }
     
     func checkWifiConnection() -> Bool{
-        return self.reachability!.currentReachabilityStatus().rawValue == ReachableViaWWAN.rawValue
+        self.reachability!.currentReachabilityStatus().rawValue == ReachableViaWWAN.rawValue
     }
 
 }
