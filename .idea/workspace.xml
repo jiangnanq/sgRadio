@@ -3,83 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="12da887f-a0af-4fbd-a919-2c5b3db3797b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Podfile" beforeDir="false" afterPath="$PROJECT_DIR$/Podfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Podfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Manifest.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Pods/Manifest.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Pods.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/Pods/Pods.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Pods.xcodeproj/xcuserdata/jiangnanqing.xcuserdatad/xcschemes/Spring.xcscheme" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Pods.xcodeproj/xcuserdata/jiangnanqing.xcuserdatad/xcschemes/xcschememanagement.plist" beforeDir="false" afterPath="$PROJECT_DIR$/Pods/Pods.xcodeproj/xcuserdata/jiangnanqing.xcuserdatad/xcschemes/xcschememanagement.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/AsyncButton.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/AsyncImageView.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/AutoTextView.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/BlurView.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/DesignableButton.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/DesignableImageView.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/DesignableLabel.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/DesignableTabBarController.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/DesignableTextField.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/DesignableTextView.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/DesignableView.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/ImageLoader.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/KeyboardLayoutConstraint.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/LoadingView.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/LoadingView.xib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/Misc.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/SoundPlayer.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/Spring.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/SpringAnimation.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/SpringButton.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/SpringImageView.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/SpringLabel.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/SpringTextField.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/SpringTextView.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/SpringView.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/TransitionManager.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/TransitionZoom.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/Spring/UnwindSegue.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/SpringApp/Images.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/SpringApp/Images.xcassets/AppIcon.appiconset/appicon@120-1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/SpringApp/Images.xcassets/AppIcon.appiconset/appicon@120.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/SpringApp/Images.xcassets/AppIcon.appiconset/appicon@152.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/SpringApp/Images.xcassets/AppIcon.appiconset/appicon@167.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/SpringApp/Images.xcassets/AppIcon.appiconset/appicon@180.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/SpringApp/Images.xcassets/AppIcon.appiconset/appicon@29.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/SpringApp/Images.xcassets/AppIcon.appiconset/appicon@40.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/SpringApp/Images.xcassets/AppIcon.appiconset/appicon@58-1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/SpringApp/Images.xcassets/AppIcon.appiconset/appicon@58.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/SpringApp/Images.xcassets/AppIcon.appiconset/appicon@76.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/SpringApp/Images.xcassets/AppIcon.appiconset/appicon@80-1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/SpringApp/Images.xcassets/AppIcon.appiconset/appicon@80.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/SpringApp/Images.xcassets/AppIcon.appiconset/appicon@87.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/SpringApp/Images.xcassets/icon-shape.imageset/Contents.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/SpringApp/Images.xcassets/icon-shape.imageset/icon-shape.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/SpringApp/Images.xcassets/loading.imageset/Contents.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Spring/SpringApp/Images.xcassets/loading.imageset/loading.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-SwiftRadio/Pods-SwiftRadio-acknowledgements.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-SwiftRadio/Pods-SwiftRadio-acknowledgements.markdown" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-SwiftRadio/Pods-SwiftRadio-acknowledgements.plist" beforeDir="false" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-SwiftRadio/Pods-SwiftRadio-acknowledgements.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-SwiftRadio/Pods-SwiftRadio-frameworks.sh" beforeDir="false" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-SwiftRadio/Pods-SwiftRadio-frameworks.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-SwiftRadio/Pods-SwiftRadio.debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-SwiftRadio/Pods-SwiftRadio.debug.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-SwiftRadio/Pods-SwiftRadio.release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-SwiftRadio/Pods-SwiftRadio.release.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Target Support Files/Spring/Spring-Info.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Target Support Files/Spring/Spring-dummy.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Target Support Files/Spring/Spring-prefix.pch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Target Support Files/Spring/Spring-umbrella.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Target Support Files/Spring/Spring.modulemap" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Target Support Files/Spring/Spring.xcconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SwiftRadio/Base.lproj/Main.storyboard" beforeDir="false" afterPath="$PROJECT_DIR$/SwiftRadio/Base.lproj/Main.storyboard" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SwiftRadio/Count.swift" beforeDir="false" afterPath="$PROJECT_DIR$/SwiftRadio/Count.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SwiftRadio/DataManager.swift" beforeDir="false" afterPath="$PROJECT_DIR$/SwiftRadio/DataManager.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SwiftRadio/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/SwiftRadio/Info.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SwiftRadio/NowPlayingViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/SwiftRadio/NowPlayingViewController.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SwiftRadio/Player.swift" beforeDir="false" afterPath="$PROJECT_DIR$/SwiftRadio/Player.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SwiftRadio/StationsViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/SwiftRadio/StationsViewController.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SwiftRadio/SwiftRadio-Settings.swift" beforeDir="false" afterPath="$PROJECT_DIR$/SwiftRadio/SwiftRadio-Settings.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/狮城电台.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/狮城电台.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/狮城电台.xcodeproj/xcuserdata/jiangnanqing.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" beforeDir="false" afterPath="$PROJECT_DIR$/狮城电台.xcodeproj/xcuserdata/jiangnanqing.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/狮城电台.xcworkspace/xcuserdata/jiangnanqing.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/狮城电台.xcworkspace/xcuserdata/jiangnanqing.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/狮城电台.xcworkspace/xcuserdata/jiangnanqing.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" beforeDir="false" afterPath="$PROJECT_DIR$/狮城电台.xcworkspace/xcuserdata/jiangnanqing.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,7 +117,8 @@
       <workItem from="1586501331286" duration="1226000" />
       <workItem from="1586647589770" duration="52000" />
       <workItem from="1586647653637" duration="13117000" />
-      <workItem from="1586764178985" duration="6040000" />
+      <workItem from="1586764178985" duration="10727000" />
+      <workItem from="1586933417705" duration="902000" />
     </task>
     <task id="LOCAL-00001" summary="Update station list resource, publish to app store">
       <created>1551193161918</created>
@@ -248,46 +173,46 @@
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
     <state x="1174" y="451" key="#xdebugger.XInspectDialog/0.23.2560.1337@0.23.2560.1337" timestamp="1586765110361" />
-    <state width="2518" height="426" key="GridCell.Tab.0.bottom" timestamp="1586789745475">
+    <state width="2518" height="426" key="GridCell.Tab.0.bottom" timestamp="1586934342030">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
-    <state width="2518" height="426" key="GridCell.Tab.0.bottom/0.23.2560.1337@0.23.2560.1337" timestamp="1586789745475" />
-    <state width="2518" height="426" key="GridCell.Tab.0.center" timestamp="1586789745474">
+    <state width="2518" height="426" key="GridCell.Tab.0.bottom/0.23.2560.1337@0.23.2560.1337" timestamp="1586934342030" />
+    <state width="2518" height="426" key="GridCell.Tab.0.center" timestamp="1586934342029">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
-    <state width="2518" height="426" key="GridCell.Tab.0.center/0.23.2560.1337@0.23.2560.1337" timestamp="1586789745474" />
-    <state width="2518" height="426" key="GridCell.Tab.0.left" timestamp="1586789745474">
+    <state width="2518" height="426" key="GridCell.Tab.0.center/0.23.2560.1337@0.23.2560.1337" timestamp="1586934342029" />
+    <state width="2518" height="426" key="GridCell.Tab.0.left" timestamp="1586934342028">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
-    <state width="2518" height="426" key="GridCell.Tab.0.left/0.23.2560.1337@0.23.2560.1337" timestamp="1586789745474" />
-    <state width="2518" height="426" key="GridCell.Tab.0.right" timestamp="1586789745475">
+    <state width="2518" height="426" key="GridCell.Tab.0.left/0.23.2560.1337@0.23.2560.1337" timestamp="1586934342028" />
+    <state width="2518" height="426" key="GridCell.Tab.0.right" timestamp="1586934342029">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
-    <state width="2518" height="426" key="GridCell.Tab.0.right/0.23.2560.1337@0.23.2560.1337" timestamp="1586789745475" />
-    <state width="2518" height="426" key="GridCell.Tab.1.bottom" timestamp="1586789745476">
+    <state width="2518" height="426" key="GridCell.Tab.0.right/0.23.2560.1337@0.23.2560.1337" timestamp="1586934342029" />
+    <state width="2518" height="426" key="GridCell.Tab.1.bottom" timestamp="1586934342031">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
-    <state width="2518" height="426" key="GridCell.Tab.1.bottom/0.23.2560.1337@0.23.2560.1337" timestamp="1586789745476" />
-    <state width="2518" height="426" key="GridCell.Tab.1.center" timestamp="1586789745475">
+    <state width="2518" height="426" key="GridCell.Tab.1.bottom/0.23.2560.1337@0.23.2560.1337" timestamp="1586934342031" />
+    <state width="2518" height="426" key="GridCell.Tab.1.center" timestamp="1586934342030">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
-    <state width="2518" height="426" key="GridCell.Tab.1.center/0.23.2560.1337@0.23.2560.1337" timestamp="1586789745475" />
-    <state width="2518" height="426" key="GridCell.Tab.1.left" timestamp="1586789745475">
+    <state width="2518" height="426" key="GridCell.Tab.1.center/0.23.2560.1337@0.23.2560.1337" timestamp="1586934342030" />
+    <state width="2518" height="426" key="GridCell.Tab.1.left" timestamp="1586934342030">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
-    <state width="2518" height="426" key="GridCell.Tab.1.left/0.23.2560.1337@0.23.2560.1337" timestamp="1586789745475" />
-    <state width="2518" height="426" key="GridCell.Tab.1.right" timestamp="1586789745475">
+    <state width="2518" height="426" key="GridCell.Tab.1.left/0.23.2560.1337@0.23.2560.1337" timestamp="1586934342030" />
+    <state width="2518" height="426" key="GridCell.Tab.1.right" timestamp="1586934342031">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
-    <state width="2518" height="426" key="GridCell.Tab.1.right/0.23.2560.1337@0.23.2560.1337" timestamp="1586789745475" />
+    <state width="2518" height="426" key="GridCell.Tab.1.right/0.23.2560.1337@0.23.2560.1337" timestamp="1586934342031" />
     <state x="781" y="330" key="SettingsEditor" timestamp="1579640976644">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
     <state x="781" y="330" key="SettingsEditor/0.23.2560.1337@0.23.2560.1337" timestamp="1579640976644" />
-    <state x="957" y="524" key="com.intellij.ide.util.TipDialog" timestamp="1586764186142">
+    <state x="957" y="524" key="com.intellij.ide.util.TipDialog" timestamp="1586933599870">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
-    <state x="957" y="524" key="com.intellij.ide.util.TipDialog/0.23.2560.1337@0.23.2560.1337" timestamp="1586764186142" />
+    <state x="957" y="524" key="com.intellij.ide.util.TipDialog/0.23.2560.1337@0.23.2560.1337" timestamp="1586933599870" />
     <state x="938" y="448" width="683" height="486" key="find.popup" timestamp="1579441544566">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>

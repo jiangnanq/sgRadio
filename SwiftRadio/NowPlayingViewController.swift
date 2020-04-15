@@ -44,6 +44,7 @@ class NowPlayingViewController: UIViewController {
         updateSongName()
         NotificationCenter.default.addObserver(self, selector: #selector(updateSongName), name: songTitleNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateSongName), name: songArtworkNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateAutoStopInfo), name: autoStopTimerNotification, object: nil)
         setupVolumeSlider()
     }
 
@@ -51,12 +52,31 @@ class NowPlayingViewController: UIViewController {
         self.songLabel.text = player.track.title
         self.artistLabel.text = player.track.artist
         self.albumImageView.image = player.track.artworkImage
+
+    }
+    
+    @objc func updateAutoStopInfo() {
+        if player.targetTimer != 0 {
+            autoStopButton.setTitle("\(player.targetTimer - player.runningTimer)分钟后停止", for: .normal)
+        } else {
+            autoStopButton.setTitle("自动停止", for: .normal)
+        }
+        if let p: AVPlayer = player.player {
+            if p.timeControlStatus == .playing {
+                pauseButton.isEnabled = true
+                playButton.isEnabled = false
+            } else {
+                pauseButton.isEnabled = false
+                playButton.isEnabled = true
+            }
+        }
     }
     
     deinit {
         // Be a good citizen
         NotificationCenter.default.removeObserver(self, name: songTitleNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: songArtworkNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: autoStopTimerNotification, object: nil)
     }
     
     //*****************************************************************
@@ -138,35 +158,39 @@ class NowPlayingViewController: UIViewController {
     }
     
     @IBAction func autoStopPressed() {
-//        let optionMenu = UIAlertController(title: nil, message: "自动停止", preferredStyle:.actionSheet)
-//        let option1 = UIAlertAction(title: "15分钟后", style: .default, handler: {
-//            (alert: UIAlertAction!) -> Void in
-//            self.sleepCounter?.startTimer(900)
-//        })
-//        let option2 = UIAlertAction(title: "30分钟后", style: .default, handler: {
-//            (alert: UIAlertAction!) -> Void in
-//            self.sleepCounter?.startTimer(1800)
-//        })
-//        let option3 = UIAlertAction(title: "45分钟后", style: .default, handler: {
-//            (alert: UIAlertAction!) -> Void in
-//            self.sleepCounter?.startTimer(2700)
-//        })
-//        let option4 = UIAlertAction(title: "60分钟后", style: .default, handler: {
-//            (alert: UIAlertAction!) -> Void in
-//            self.sleepCounter?.startTimer(3600)
-//        })
-//        let option5 = UIAlertAction(title: "取消", style: .default, handler: {
-//            (alert: UIAlertAction!) -> Void in
-//            print("Cancel")
-//        })
-//
-//        optionMenu.addAction(option1)
-//        optionMenu.addAction(option2)
-//        optionMenu.addAction(option3)
-//        optionMenu.addAction(option4)
-//        optionMenu.addAction(option5)
-//
-//        self.present(optionMenu, animated: true, completion: nil)
+        let optionMenu = UIAlertController(title: nil, message: "自动停止", preferredStyle:.actionSheet)
+        let option1 = UIAlertAction(title: "15分钟后", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.player.targetTimer = self.player.runningTimer + 15
+            self.autoStopButton.setTitle("15分钟后停止", for: .normal)
+        })
+        let option2 = UIAlertAction(title: "30分钟后", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.player.targetTimer = self.player.runningTimer + 30
+            self.autoStopButton.setTitle("30分钟后停止", for: .normal)
+        })
+        let option3 = UIAlertAction(title: "60分钟后", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.player.targetTimer = self.player.runningTimer + 60
+            self.autoStopButton.setTitle("60分钟后停止", for: .normal)
+        })
+        let option4 = UIAlertAction(title: "停止计时", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.player.targetTimer = 0
+            self.autoStopButton.setTitle("自动停止", for: .normal)
+        })
+        let option5 = UIAlertAction(title: "取消", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Cancel")
+        })
+
+        optionMenu.addAction(option1)
+        optionMenu.addAction(option2)
+        optionMenu.addAction(option3)
+        optionMenu.addAction(option4)
+        optionMenu.addAction(option5)
+
+        self.present(optionMenu, animated: true, completion: nil)
         
     }
 

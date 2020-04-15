@@ -25,7 +25,6 @@ class InfoDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupStationText()
         setupStationLogo()
     }

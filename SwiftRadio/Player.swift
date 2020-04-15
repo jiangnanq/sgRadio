@@ -12,8 +12,9 @@ import Alamofire
 import AlamofireImage
 import SwiftyJSON
 
-let songTitleNotification = Notification.Name("songTitleNotifcation")
-let songArtworkNotification = Notification.Name("songArtworkNotifcation")
+let songTitleNotification = Notification.Name("songTitleNotification")
+let songArtworkNotification = Notification.Name("songArtworkNotification")
+let autoStopTimerNotification = Notification.Name("autoStopTimerNotification")
 //*****************************************************************
 // This is a singleton struct using Swift
 //*****************************************************************
@@ -27,14 +28,39 @@ class radioPlayer: NSObject {
             playStation()
         }
     }
+    
+    var timer = Timer()
     var track = Track()
+    var targetTimer:Int = 0
+    var runningTimer:Int = 0
+    
+    override init() {
+        super.init()
+        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(oneMinJob), userInfo: nil, repeats: true)
+    }
 
+    @objc func oneMinJob() {
+        guard player != nil else {return}
+        if self.player!.timeControlStatus == .playing {
+            print("\(runningTimer),  \(targetTimer)")
+            runningTimer += 1
+            if targetTimer != 0 {
+                if runningTimer >= targetTimer {
+                    player!.pause()
+                    targetTimer = 0
+                }
+            }
+            NotificationCenter.default.post(name: autoStopTimerNotification, object: nil)
+        }
+    }
+    
     func playStation() {
         let playerAsset = AVAsset(url: URL(string: currentStation!.stationStreamURL)!)
         playerItem = AVPlayerItem(asset: playerAsset)
         playerItem!.addObserver(self, forKeyPath: "timedMetadata", options: NSKeyValueObservingOptions(), context: nil)
         player = AVPlayer(playerItem: playerItem)
         self.setupAudioSession()
+        self.setupRemoteTransportControl()
         player!.play()
     }
 
@@ -44,6 +70,20 @@ class radioPlayer: NSObject {
             try AVAudioSession.sharedInstance().setActive(true)
         }catch {
             print("error when set player! \(error)" )
+        }
+    }
+
+    func setupRemoteTransportControl() {
+        let commandCenter = MPRemoteCommandCenter.shared()
+        commandCenter.playCommand.addTarget { event in
+            print("receive remote event.")
+            self.player?.play()
+            return .success
+        }
+        commandCenter.pauseCommand.addTarget { event in
+            print("receive pause command.")
+            self.player?.pause()
+            return .success
         }
     }
 
@@ -58,6 +98,9 @@ class radioPlayer: NSObject {
                     track.artist = artist
                     NotificationCenter.default.post(name: songTitleNotification, object: nil)
                     print("\(track.title), \(track.artist)")
+                    if UIApplication.shared.applicationState == .background {
+                        return
+                    }
                     let parameters = [
                         "term": "\(track.artist) \(track.title)",
                         "entity": "song",
@@ -67,7 +110,7 @@ class radioPlayer: NSObject {
                         let json = JSON(response.data)
                         let r = json["results"]
                         if let artworkurl: String = r[0]["artworkUrl100"].stringValue {
-                            Alamofire.request(artworkurl).responseImage { artwork in
+                            Alamofire.request(artworkurl.replacingOccurrences(of: "100x100", with: "160x160")).responseImage { artwork in
                                if case .success(let image) = artwork.result {
                                    self.track.artworkImage = image
                                    NotificationCenter.default.post(name: songArtworkNotification, object: nil)
@@ -90,29 +133,5 @@ class radioPlayer: NSObject {
             MPMediaItemPropertyArtwork: albumArtwork
         ]
     }
-
-//    override func remoteControlReceived(with receivedEvent: UIEvent?) {
-//        super.remoteControlReceived(with: receivedEvent)
-//
-//        if receivedEvent!.type == UIEvent.EventType.remoteControl {
-//
-//            switch receivedEvent!.subtype {
-//            case .remoteControlPlay:
-//                playPressed()
-//            case .remoteControlStop:
-//                pausePressed()
-//            case .remoteControlTogglePlayPause:
-//                if track.isPlaying {
-//                    pausePressed()
-//                }else {
-//                    playPressed()
-//                }
-//            case .remoteControlPause:
-//                pausePressed()
-//            default:
-//                break
-//            }
-//        }
-//    }
-
 }
+
