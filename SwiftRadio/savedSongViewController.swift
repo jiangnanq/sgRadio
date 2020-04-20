@@ -13,67 +13,37 @@ import AVFoundation
 class savedSongViewController: UIViewController {
 
     @IBOutlet weak var savedSongTable: UITableView!
-    
-    var savedSongs: favoriteSongs?
-    var allSavedSongs = [String]()
+    @IBOutlet weak var selectSegment: UISegmentedControl!
+    var savedSong:[String] = UserDefaults.standard.array(forKey: "SavedSongs") as? [String] ?? []
+    var recentSong:[String] = UserDefaults.standard.array(forKey: "RecentSongs") as? [String] ?? []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.savedSongs = favoriteSongs.sharedInstance
-        self.allSavedSongs = (self.savedSongs?.favoriteTracks)!
-        
+        self.title = "收藏"
+        savedSongTable.dataSource = self
+        savedSongTable.delegate = self
         // Do view setup here.
     }
     
+    @IBAction func selectpage() {
+        savedSongTable.reloadData()
+    }
 }
 
-extension savedSongViewController: UITableViewDataSource {
+extension savedSongViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in savedSongTable: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ savedSongTable: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.savedSongs?.favoriteTracks.count == 0 {
-            return 1
-        } else {
-            return (self.savedSongs?.favoriteTracks.count)!
-        }
+        selectSegment.selectedSegmentIndex == 0 ? savedSong.count:recentSong.count
     }
     
     func tableView(_ savedSongTable: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = savedSongTable.dequeueReusableCell(withIdentifier: "song", for: indexPath)
         cell.textLabel?.backgroundColor = UIColor.clear
-        let aSong = self.allSavedSongs[indexPath.row]
-        if !(aSong=="") {
-            if let label = cell.textLabel {
-                label.text = self.allSavedSongs[indexPath.row].components(separatedBy: ",")[0]
-            }
-            if let detailLabel = cell.detailTextLabel {
-                detailLabel.text = self.allSavedSongs[indexPath.row].components(separatedBy: ",")[1]
-            }
-        }
-
+        cell.textLabel?.text = selectSegment.selectedSegmentIndex == 0 ? savedSong[indexPath.row]:recentSong[indexPath.row]
         return cell
     }
     
-}
-
-extension savedSongViewController:UITableViewDelegate {
-    func tableView(_ savedSongTable: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ savedSongTable: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            self.allSavedSongs.remove(at: indexPath.row)
-            self.savedSongs?.favoriteTracks.remove(at: indexPath.row)
-            self.savedSongs?.saveAllSongs()
-            var selectIndex = [IndexPath]()
-            selectIndex.append(indexPath)
-            savedSongTable.deleteRows(at: selectIndex, with: UITableView.RowAnimation.fade)
-            DispatchQueue.main.async(execute: { () -> Void in
-                self.savedSongTable?.reloadData()
-            })            
-        }
-    }
 }

@@ -34,6 +34,8 @@ class radioPlayer: NSObject {
     var targetTimer:Int = 0
     var runningTimer:Int = 0
     
+    let reachability = Reachability.forInternetConnection()
+    
     override init() {
         super.init()
         timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(oneMinJob), userInfo: nil, repeats: true)
@@ -42,7 +44,6 @@ class radioPlayer: NSObject {
     @objc func oneMinJob() {
         guard player != nil else {return}
         if self.player!.timeControlStatus == .playing {
-            print("\(runningTimer),  \(targetTimer)")
             runningTimer += 1
             if targetTimer != 0 {
                 if runningTimer >= targetTimer {
@@ -98,9 +99,7 @@ class radioPlayer: NSObject {
                     track.artist = artist
                     NotificationCenter.default.post(name: songTitleNotification, object: nil)
                     print("\(track.title), \(track.artist)")
-                    if UIApplication.shared.applicationState == .background {
-                        return
-                    }
+                    saveRecentSong()
                     let parameters = [
                         "term": "\(track.artist) \(track.title)",
                         "entity": "song",
@@ -132,6 +131,45 @@ class radioPlayer: NSObject {
             MPMediaItemPropertyTitle: track.title,
             MPMediaItemPropertyArtwork: albumArtwork
         ]
+    }
+    
+    @objc func dataUsageTotalizer() {
+        if self.reachability!.currentReachabilityStatus().rawValue == ReachableViaWWAN.rawValue {
+//            self.playingTimeTotalizer += 1
+//            let dataUsageDouble = Double(self.playingTimeTotalizer * 25)
+//            var dataUsageString = ""
+//            let dataUsageDoubleInM = dataUsageDouble/1000
+//            dataUsageString = String(format: "已用%.1fMb流量", dataUsageDoubleInM)
+//            self.delegate?.didUpdateDataUsage(dataUsageString)
+        }
+    }
+    
+    func saveCurrentSong() {
+        var savedSong:[String] = UserDefaults.standard.array(forKey: "SavedSongs") as? [String] ?? []
+        if !savedSong.joined(separator: ",").contains("\(track.title)") {
+         if savedSong.count >= 20 {
+             savedSong.remove(at: savedSong.count - 1)
+         }
+         let df = DateFormatter()
+         df.dateFormat = "YYYY-MMM-dd HH:mm"
+         let ts = df.string(from: Date())
+         savedSong.insert("\(ts):\n\(track.artist) - \(track.title)", at: 0)
+         UserDefaults.standard.set(savedSong, forKey: "SavedSongs")
+        }
+    }
+    
+    func saveRecentSong() {
+        var recentSong:[String] = UserDefaults.standard.array(forKey: "RecentSongs") as? [String] ?? []
+        if !recentSong.joined(separator: ",").contains("\(track.title)") {
+         if recentSong.count >= 20 {
+             recentSong.remove(at: recentSong.count - 1)
+         }
+         let df = DateFormatter()
+         df.dateFormat = "YYYY-MMM-dd HH:mm"
+         let ts = df.string(from: Date())
+         recentSong.insert("\(ts):\n\(track.artist) - \(track.title)", at: 0)
+         UserDefaults.standard.set(recentSong, forKey: "RecentSongs")
+        }
     }
 }
 

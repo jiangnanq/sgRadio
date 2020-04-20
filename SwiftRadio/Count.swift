@@ -97,5 +97,4 @@ class Count :NSObject {
     func checkWifiConnection() -> Bool{
         self.reachability!.currentReachabilityStatus().rawValue == ReachableViaWWAN.rawValue
     }
-
 }

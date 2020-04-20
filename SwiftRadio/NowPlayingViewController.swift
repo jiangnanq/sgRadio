@@ -27,7 +27,7 @@ class NowPlayingViewController: UIViewController {
     @IBOutlet weak var volumeParentView: UIView!
     @IBOutlet weak var slider = UISlider()
     @IBOutlet weak var autoStopButton: UIButton!
-    @IBOutlet weak var dataUsageLabel: UILabel!
+//    @IBOutlet weak var dataUsageLabel: UILabel!
     @IBOutlet weak var saveSongButton: UIButton!
     
     var mpVolumeSlider = UISlider()
@@ -41,6 +41,7 @@ class NowPlayingViewController: UIViewController {
         super.viewDidLoad()
         // Set View Title
         self.title = player.currentStation!.stationName
+        stationDescLabel.text = player.currentStation?.stationLongDesc
         updateSongName()
         NotificationCenter.default.addObserver(self, selector: #selector(updateSongName), name: songTitleNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateSongName), name: songArtworkNotification, object: nil)
@@ -114,7 +115,6 @@ class NowPlayingViewController: UIViewController {
         player.player?.pause()
         pauseButton.isEnabled = false
         playButton.isEnabled = true
-
     }
     
     @IBAction func volumeChanged(_ sender:UISlider) {
@@ -122,37 +122,30 @@ class NowPlayingViewController: UIViewController {
     }
     
     func saveThisSong() {
-//        EZLoadingActivity.show("正在收藏", disableUI: false)
-//        self.savedSongs?.addOneSong(self.track)
-//        let delay = 0.5 * Double(NSEC_PER_SEC)
-//        let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
-//        DispatchQueue.main.asyncAfter(deadline: time) { () -> Void in
-//            EZLoadingActivity.hide(success: true, animated: false)
-//        }
+        player.saveCurrentSong()
     }
     
     @IBAction func saveSongToFavorite(_ sender:UIButton){
-//        let optionMenu = UIAlertController(title: nil, message: "收藏歌曲", preferredStyle: .actionSheet)
-//        let option1 = UIAlertAction(title: "收藏这首歌曲", style: .default, handler: {
-//            (alert: UIAlertAction!) -> Void in
-//            self.saveThisSong()
-//        })
-//        let option2 = UIAlertAction(title: "查看收藏夹", style: .default, handler: {
-//            (alert: UIAlertAction!) -> Void in
-//            self.showSavedSongsList()
-//        })
-//        let option3 = UIAlertAction(title: "取消", style: .default, handler: {
-//            (alert: UIAlertAction!) -> Void in
-//            print("Cancel")
-//        })
-//
-//        optionMenu.addAction(option1)
-//        optionMenu.addAction(option2)
-//        optionMenu.addAction(option3)
-//
-//        self.present(optionMenu, animated: true, completion: nil)
+        let optionMenu = UIAlertController(title: nil, message: "收藏歌曲", preferredStyle: .actionSheet)
+        let option1 = UIAlertAction(title: "收藏这首歌曲", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.saveThisSong()
+        })
+        let option2 = UIAlertAction(title: "查看收藏夹", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.showSavedSongsList()
+        })
+        let option3 = UIAlertAction(title: "取消", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Cancel")
+        })
 
+        optionMenu.addAction(option1)
+        optionMenu.addAction(option2)
+        optionMenu.addAction(option3)
+        self.present(optionMenu, animated: true, completion: nil)
     }
+    
     func showSavedSongsList() {
         performSegue(withIdentifier: "savedSongs", sender: self)
     }
@@ -189,31 +182,9 @@ class NowPlayingViewController: UIViewController {
         optionMenu.addAction(option3)
         optionMenu.addAction(option4)
         optionMenu.addAction(option5)
-
         self.present(optionMenu, animated: true, completion: nil)
-        
-    }
-
-    //*****************************************************************
-    // MARK: - Segue
-    //*****************************************************************
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "InfoDetail" {
-            let infoController = segue.destination as! InfoDetailViewController
-//            infoController.currentStation = currentStation
-        }
     }
     
-    @IBAction func infoButtonPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: "InfoDetail", sender: self)
-    }
-    
-    //*****************************************************************
-    // MARK: - MPNowPlayingInfoCenter (Lock screen)
-    //*****************************************************************
-
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             self.saveThisSong()
@@ -221,20 +192,3 @@ class NowPlayingViewController: UIViewController {
     }
 }
 
-extension NowPlayingViewController:countDelegate {
-    func didUpdateEverySeconds(_ statusString: String) {
-        if (statusString == "自动停止") {
-            self.autoStopButton.setTitle("自动停止", for: UIControl.State())
-            pausePressed()
-            return
-        }
-        UIView.performWithoutAnimation({ () -> Void in
-            self.autoStopButton.setTitle(statusString, for: UIControl.State())
-            self.autoStopButton.layoutIfNeeded()
-        })
-    }
-    
-    func didUpdateDataUsage(_ dataUsageString : String) {
-        self.dataUsageLabel.text = dataUsageString
-    }
-}

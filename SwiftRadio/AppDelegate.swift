@@ -17,10 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // MPNowPlayingInfoCenter
         UIApplication.shared.beginReceivingRemoteControlEvents()
-        
         // Make status bar white
-        UINavigationBar.appearance().barStyle = .black
-        
+//        UINavigationBar.appearance().barStyle = .black
         return true
     }
 
