@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="12da887f-a0af-4fbd-a919-2c5b3db3797b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SwiftRadio/Player.swift" beforeDir="false" afterPath="$PROJECT_DIR$/SwiftRadio/Player.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/狮城电台.xcworkspace/xcuserdata/jiangnanqing.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/狮城电台.xcworkspace/xcuserdata/jiangnanqing.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,16 +25,12 @@
     <select />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_00008020-001E44663CF2002E" />
-  <component name="FavoritesManager">
-    <favorites_list name="狮城电台" />
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1RvNZNjwNfZIOZ024lnmbZmPq9L" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -53,7 +49,7 @@
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RunManager">
-    <configuration name="狮城电台" type="AppleRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="狮城电台" TARGET_NAME="SwiftRadio" CONFIG_NAME="Debug" SCHEME_NAME="狮城电台" IS_LOCATION_SIMULATION_ALLOWED="true" APPLICATION_LANGUAGE="IDELaunchSchemeLanguageUseSystemLanguage" APPLICATION_REGION="" RUN_TARGET_PROJECT_NAME="狮城电台" RUN_TARGET_NAME="SwiftRadio" MAKE_ACTIVE="TRUE" SHOULD_DEBUG_EXTENSIONS="false">
+    <configuration name="狮城电台" type="AppleRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="狮城电台" TARGET_NAME="SwiftRadio" CONFIG_NAME="Debug" SCHEME_NAME="狮城电台" IS_LOCATION_SIMULATION_ALLOWED="true" APPLICATION_LANGUAGE="IDELaunchSchemeLanguageUseSystemLanguage" APPLICATION_REGION="" RUN_TARGET_PROJECT_NAME="狮城电台" RUN_TARGET_NAME="SwiftRadio" MAKE_ACTIVE="TRUE" SHOULD_DEBUG_EXTENSIONS="false">
       <envs>
         <env name="OS_ACTIVITY_MODE " value="${DEBUG_ACTIVITY_MODE}" />
       </envs>
@@ -65,18 +61,6 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -119,6 +103,10 @@
       <workItem from="1586647653637" duration="13117000" />
       <workItem from="1586764178985" duration="10727000" />
       <workItem from="1586933417705" duration="902000" />
+      <workItem from="1589770820492" duration="1193000" />
+      <workItem from="1590069419286" duration="601000" />
+      <workItem from="1590502772551" duration="326000" />
+      <workItem from="1591612931556" duration="1000" />
     </task>
     <task id="LOCAL-00001" summary="Update station list resource, publish to app store">
       <created>1551193161918</created>
@@ -131,16 +119,14 @@
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -159,6 +145,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update station list resource, publish to app store" />
