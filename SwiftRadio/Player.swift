@@ -93,6 +93,7 @@ class radioPlayer: NSObject {
         let data: AVPlayerItem = of as! AVPlayerItem
         if let metadta: String = data.timedMetadata?.first?.value as? String {
             let m = metadta.replacingOccurrences(of: "*", with: "")
+            guard m.contains("-") else {return}
             if let artist: String = m.components(separatedBy: "-")[0], let songname: String = m.components(separatedBy: "-")[1] {
                 if track.title != songname {
                     track.title = songname
