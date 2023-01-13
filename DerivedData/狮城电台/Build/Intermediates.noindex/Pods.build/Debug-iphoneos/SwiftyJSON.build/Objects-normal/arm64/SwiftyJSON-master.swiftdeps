@@ -1,0 +1,6 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "58617487d83d10ce59e3296aad670d3a3e089b7da58a830732acded78ef8a04e"
+build_start_time: [1673580632, 223932981]
+build_end_time: [1673580633, 96245050]
+inputs:
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/SwiftyJSON/Source/SwiftyJSON/SwiftyJSON.swift": [1570549344, 0]

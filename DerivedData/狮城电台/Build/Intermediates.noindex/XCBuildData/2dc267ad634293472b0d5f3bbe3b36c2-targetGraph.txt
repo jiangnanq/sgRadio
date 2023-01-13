@@ -1,0 +1,14 @@
+Target dependency graph (5 targets)
+Alamofire in Pods, no dependencies
+AlamofireImage in Pods, depends on:
+Alamofire in Pods (explicit)
+SwiftyJSON in Pods, no dependencies
+Pods-SwiftRadio in Pods, depends on:
+Alamofire in Pods (explicit)
+AlamofireImage in Pods (explicit)
+SwiftyJSON in Pods (explicit)
+SwiftRadio in 狮城电台, depends on:
+Pods-SwiftRadio in Pods (implicit dependency via file 'Pods_SwiftRadio.framework' in build phase 'Link Binary')
+Alamofire in Pods (implicit dependency via options '-framework Alamofire' in build setting 'OTHER_LDFLAGS')
+AlamofireImage in Pods (implicit dependency via options '-framework AlamofireImage' in build setting 'OTHER_LDFLAGS')
+SwiftyJSON in Pods (implicit dependency via options '-framework SwiftyJSON' in build setting 'OTHER_LDFLAGS')

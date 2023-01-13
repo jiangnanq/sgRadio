@@ -1,0 +1,14 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/DerivedData/狮城电台/Build/Products/Debug-iphoneos/AlamofireImage/AlamofireImage.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/DerivedData/狮城电台/Build/Intermediates.noindex/Pods.build/Debug-iphoneos/AlamofireImage.build/unextended-module.modulemap",
+    }]
+  }]
+}

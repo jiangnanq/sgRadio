@@ -1,0 +1,20 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "95821a83d439ab314a3c0c353212df0e25530217eeb494167ee66a70bd9014dd"
+build_start_time: [1673580778, 484250068]
+build_end_time: [1673580778, 506669044]
+inputs:
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/EZLoadingActivity.swift": !private [1570574354, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/SwiftRadio/AboutViewController.swift": !private [1536040821, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/SwiftRadio/AnimationFrames.swift": !private [1500469018, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/SwiftRadio/AppDelegate.swift": !private [1587049887, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/SwiftRadio/Count.swift": !private [1587026662, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/SwiftRadio/NowPlayingViewController.swift": !private [1587252633, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/SwiftRadio/Player.swift": !private [1633351929, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/SwiftRadio/PopUpMenuViewController.swift": !private [1500468756, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/SwiftRadio/RadioStation.swift": !private [1500469042, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/SwiftRadio/StationsViewController.swift": !private [1587183636, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/SwiftRadio/SwiftRadio-Settings.swift": !private [1579441675, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/SwiftRadio/Track.swift": !private [1454106044, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/SwiftRadio/UIImage+DropShadow.swift": !private [1500468756, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/SwiftRadio/UIImageView+Download.swift": !private [1500468756, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/SwiftRadio/savedSongViewController.swift": !private [1587184518, 0]

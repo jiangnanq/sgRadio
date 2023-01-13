@@ -1,0 +1,22 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "649f0c0997383261773fb0970cff55987766e7908af9492cde814a83026a1e62"
+build_start_time: [1673580632, 225850105]
+build_end_time: [1673580632, 244624137]
+inputs:
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/Alamofire/Source/AFError.swift": !private [1586701336, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/Alamofire/Source/Alamofire.swift": !private [1586701336, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/Alamofire/Source/DispatchQueue+Alamofire.swift": !private [1586701336, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/Alamofire/Source/MultipartFormData.swift": !private [1586701336, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/Alamofire/Source/NetworkReachabilityManager.swift": !private [1586701336, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/Alamofire/Source/Notifications.swift": !private [1586701336, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/Alamofire/Source/ParameterEncoding.swift": !private [1586701336, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/Alamofire/Source/Request.swift": !private [1586701336, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/Alamofire/Source/Response.swift": !private [1586701336, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/Alamofire/Source/ResponseSerialization.swift": !private [1586701336, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/Alamofire/Source/Result.swift": !private [1586701336, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/Alamofire/Source/ServerTrustPolicy.swift": !private [1586701336, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/Alamofire/Source/SessionDelegate.swift": !private [1586701336, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/Alamofire/Source/SessionManager.swift": !private [1586701336, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/Alamofire/Source/TaskDelegate.swift": !private [1586701336, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/Alamofire/Source/Timeline.swift": !private [1586701336, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/Alamofire/Source/Validation.swift": !private [1586701336, 0]

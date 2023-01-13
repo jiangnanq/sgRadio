@@ -55,9 +55,11 @@
 		BAAE2B5C1C6B772E0027D7FD /* Count.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Count.swift; sourceTree = "<group>"; };
 		BADE6DF91C74BBE3003BF207 /* SwiftRadio-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftRadio-Bridging-Header.h"; sourceTree = "<group>"; };
 		BADE6E0B1C74C73A003BF207 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		BADE6E0D1C74C769003BF207 /* <#SwiftRadio#>-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "<#SwiftRadio#>-Bridging-Header.h"; path = "../<#SwiftRadio#>-Bridging-Header.h"; sourceTree = "<group>"; };
 		BADE6E0E1C74C78D003BF207 /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		C5BAAB425FA19AA10D3B29B3 /* Pods-SwiftRadio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftRadio.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftRadio/Pods-SwiftRadio.release.xcconfig"; sourceTree = "<group>"; };
+		F9518B4829710737001409D5 /* <#SwiftRadio#>-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "<#SwiftRadio#>-Bridging-Header.h"; sourceTree = "<group>"; };
+		F9F94926291499AB00156A1C /* SwiftRadio-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftRadio-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		F9F949272914A03900156A1C /* <#SwiftRadio#>-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "<#SwiftRadio#>-Bridging-Header.h"; path = "../<#SwiftRadio#>-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 		9409E10D1ABF6FE900312E2B = {
 			isa = PBXGroup;
 			children = (
+				F9518B4829710737001409D5 /* <#SwiftRadio#>-Bridging-Header.h */,
 				B90086461BBE40AF00E5372C /* MediaPlayer.framework */,
 				9409E1181ABF6FEA00312E2B /* SwiftRadio */,
 				949BBB411ACCA2B6005B7C26 /* Libraries */,
@@ -121,7 +124,8 @@
 		9409E1191ABF6FEA00312E2B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				BADE6E0D1C74C769003BF207 /* <#SwiftRadio#>-Bridging-Header.h */,
+				F9F949272914A03900156A1C /* <#SwiftRadio#>-Bridging-Header.h */,
+				F9F94926291499AB00156A1C /* SwiftRadio-Bridging-Header.h */,
 				BA0E2FA01C79FC3600D178DC /* EZLoadingActivity.swift */,
 				9409E11A1ABF6FEA00312E2B /* Info.plist */,
 				94D260901B45D20000DE671C /* SwiftRadio-Settings.swift */,
@@ -455,8 +459,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.SGRadio;
 				PRODUCT_NAME = "狮城电台";
 				PROVISIONING_PROFILE = "";
-				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/jiangnanqing/Dropbox/project/oldproject/SgRadio/<#SwiftRadio#>-Bridging-Header.h";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/<#SwiftRadio#>-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -484,8 +488,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.SGRadio;
 				PRODUCT_NAME = "狮城电台";
 				PROVISIONING_PROFILE = "";
-				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/jiangnanqing/Dropbox/project/oldproject/SgRadio/<#SwiftRadio#>-Bridging-Header.h";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/<#SwiftRadio#>-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

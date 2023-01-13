@@ -1,0 +1,67 @@
+{
+  "_buildCommand2" : {
+    "command" : "build",
+    "skipDependencies" : false,
+    "style" : "buildOnly"
+  },
+  "buildCommand" : "build",
+  "configuredTargets" : [
+    {
+      "guid" : "cb10a9780b6c9a93fb6e7342b5dbdaffc896c09ab2f884a5883ed043f46a7bc5"
+    }
+  ],
+  "containerPath" : "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/狮城电台.xcworkspace",
+  "continueBuildingAfterErrors" : false,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "activeArchitecture" : "arm64",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : false,
+      "platform" : "iphoneos",
+      "sdk" : "iphoneos16.2",
+      "sdkVariant" : "iphoneos",
+      "supportedArchitectures" : [
+        "arm64e",
+        "arm64v8",
+        "arm64",
+        "armv8"
+      ],
+      "targetArchitecture" : "arm64"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/DerivedData/狮城电台/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/DerivedData/狮城电台/Build/Products",
+      "derivedDataPath" : "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/DerivedData",
+      "indexDataStoreFolderPath" : "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/DerivedData/狮城电台/Index.noindex/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/DerivedData/狮城电台/Index.noindex/PrecompiledHeaders",
+      "pchPath" : "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/DerivedData/狮城电台/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Debug",
+    "overrides" : {
+      "synthesized" : {
+        "table" : {
+          "ASSETCATALOG_FILTER_FOR_DEVICE_MODEL" : "iPhone14,5",
+          "ASSETCATALOG_FILTER_FOR_DEVICE_OS_VERSION" : "15.5",
+          "ASSETCATALOG_FILTER_FOR_THINNING_DEVICE_CONFIGURATION" : "iPhone14,5",
+          "BUILD_ACTIVE_RESOURCES_ONLY" : "YES",
+          "ENABLE_PREVIEWS" : "NO",
+          "TARGET_DEVICE_IDENTIFIER" : "00008110-000E55C61EC2801E",
+          "TARGET_DEVICE_MODEL" : "iPhone14,5",
+          "TARGET_DEVICE_OS_VERSION" : "15.5",
+          "TARGET_DEVICE_PLATFORM_NAME" : "iphoneos"
+        }
+      }
+    }
+  },
+  "qos" : "default",
+  "schemeCommand" : "launch",
+  "schemeCommand2" : "launch",
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}

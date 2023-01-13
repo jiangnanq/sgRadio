@@ -34,7 +34,7 @@ class radioPlayer: NSObject {
     var targetTimer:Int = 0
     var runningTimer:Int = 0
     
-    let reachability = Reachability.forInternetConnection()
+//    let reachability = Reachability.forInternetConnection()
     
     override init() {
         super.init()
@@ -94,30 +94,29 @@ class radioPlayer: NSObject {
         if let metadta: String = data.timedMetadata?.first?.value as? String {
             let m = metadta.replacingOccurrences(of: "*", with: "")
             guard m.contains("-") else {return}
-            if let artist: String = m.components(separatedBy: "-")[0], let songname: String = m.components(separatedBy: "-")[1] {
-                if track.title != songname {
-                    track.title = songname
-                    track.artist = artist
-                    NotificationCenter.default.post(name: songTitleNotification, object: nil)
-                    print("\(track.title), \(track.artist)")
-                    saveRecentSong()
-                    let parameters = [
-                        "term": "\(track.artist) \(track.title)",
-                        "entity": "song",
-                        "limit": "1"
-                    ]
-                    Alamofire.request("https://itunes.apple.com/search", method: .get, parameters: parameters).response { response in
-                        let json = JSON(response.data)
-                        let r = json["results"]
-                        if let artworkurl: String = r[0]["artworkUrl100"].stringValue {
-                            Alamofire.request(artworkurl.replacingOccurrences(of: "100x100", with: "160x160")).responseImage { artwork in
-                               if case .success(let image) = artwork.result {
-                                   self.track.artworkImage = image
-                                   NotificationCenter.default.post(name: songArtworkNotification, object: nil)
-                                   self.updateLockScreen()
-                               }
-                            }
-                        }
+            let artist: String = m.components(separatedBy: "-")[0]
+            let songname: String = m.components(separatedBy: "-")[1]
+            if track.title != songname {
+                track.title = songname
+                track.artist = artist
+                NotificationCenter.default.post(name: songTitleNotification, object: nil)
+                print("\(track.title), \(track.artist)")
+                saveRecentSong()
+                let parameters = [
+                    "term": "\(track.artist) \(track.title)",
+                    "entity": "song",
+                    "limit": "1"
+                ]
+                Alamofire.request("https://itunes.apple.com/search", method: .get, parameters: parameters).response { response in
+                    let json = JSON(response.data)
+                    let r = json["results"]
+                    let artworkurl: String = r[0]["artworkUrl100"].stringValue
+                    Alamofire.request(artworkurl.replacingOccurrences(of: "100x100", with: "160x160")).responseImage { artwork in
+                       if case .success(let image) = artwork.result {
+                           self.track.artworkImage = image
+                           NotificationCenter.default.post(name: songArtworkNotification, object: nil)
+                           self.updateLockScreen()
+                       }
                     }
                 }
             }
@@ -135,14 +134,14 @@ class radioPlayer: NSObject {
     }
     
     @objc func dataUsageTotalizer() {
-        if self.reachability!.currentReachabilityStatus().rawValue == ReachableViaWWAN.rawValue {
+//        if self.reachability!.currentReachabilityStatus().rawValue == ReachableViaWWAN.rawValue {
 //            self.playingTimeTotalizer += 1
 //            let dataUsageDouble = Double(self.playingTimeTotalizer * 25)
 //            var dataUsageString = ""
 //            let dataUsageDoubleInM = dataUsageDouble/1000
 //            dataUsageString = String(format: "已用%.1fMb流量", dataUsageDoubleInM)
 //            self.delegate?.didUpdateDataUsage(dataUsageString)
-        }
+//        }
     }
     
     func saveCurrentSong() {

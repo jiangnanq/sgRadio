@@ -1,0 +1,14 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "93d7712b54a88ae368e3a473325d06bda04fa2714d9cdbe8c76f467eab986e5d"
+build_start_time: [1673580632, 781173944]
+build_end_time: [1673580632, 800030946]
+inputs:
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/AlamofireImage/Source/AFIError.swift": !private [1586764759, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/AlamofireImage/Source/Image.swift": !private [1586764759, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/AlamofireImage/Source/ImageCache.swift": !private [1586764759, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/AlamofireImage/Source/ImageDownloader.swift": !private [1586764759, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/AlamofireImage/Source/ImageFilter.swift": !private [1586764759, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/AlamofireImage/Source/Request+AlamofireImage.swift": !private [1586764759, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/AlamofireImage/Source/UIButton+AlamofireImage.swift": !private [1586764759, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/AlamofireImage/Source/UIImage+AlamofireImage.swift": !private [1586764759, 0]
+  "/Users/joshuajiang/MEGA/Dropbox/project/oldproject/SgRadio/Pods/AlamofireImage/Source/UIImageView+AlamofireImage.swift": !private [1586764759, 0]
